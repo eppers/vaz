@@ -1,0 +1,157 @@
+$(document).ready(function(){
+    $('#upload-file').css('display','none');
+    
+    $('#upload-file-enable').click(function() {
+        $('#upload-file').toggle();
+        if ($('.file_1').attr('disabled')=='disabled') {
+            $('.file_1').removeAttr('disabled');
+        }
+        else {
+            $('.file_1').attr('disabled',true);
+        }
+    });
+    
+    $('.icon-2').click(function(){
+        var bool = deleteItem();
+        
+        return bool;
+    });
+    
+    if($('#isCat').is(':checked')){
+        $('tr#pick-cat').hide();
+    };
+    
+    $('#isCat').change(function(){
+        var c = this.checked ? 'hide' : 'show';
+        switch(c) {
+            case "show":
+                //showing tr
+                $('tr#pick-cat').show();
+                break;
+            case "hide":
+                $('tr#pick-cat').hide();
+                break;                    
+        }
+    });
+
+            $("#savename").click(function(){
+                
+                var title = $('#focusedInput').val(),
+                    url = $("input#url").val(),
+                    content = $('#textarea2').val(),
+                    id = $("input#id").val(),
+                    action = $("input#action").val(),
+                    link = $("#link").val();
+                
+                $('#myModal').find('.alert').remove();
+                addedit(action, id, title, content, link, url); 
+        });
+        
+        $("a[type=active]").click(function(){
+           if($(this).attr('rel')!=="")
+           activ($(this).attr('rel')); 
+       return false;
+        });
+    
+    
+});  
+
+function deleteItem() {
+   if (confirm("Czy napewno chcesz usunąć ten obiekt?")) {
+       return true;
+   }
+    return false;
+   
+}
+
+function addedit(action, id, title, content, link, linkUrl) {   
+        var url = '/admin/box/'+action;
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {id : id, title : title, content : content, link : link, url : linkUrl},
+            dataType: 'json',
+            beforeSend: function(){
+            $('#ajax-loader-small').show();
+            },
+            success: function(data) {
+         
+                  var clss='',
+                      newTr= '',
+                      bgColor = 'alternate-row',
+                      msg='',   
+                      linkString = '',
+                      shortContent = content.substr(0,50);    
+
+                      if(link==1)linkString='tak'; else linkString='nie';
+                
+                  $('#ajax-loader-small').hide();
+                
+                  if(data['error']==0) { 
+                      clss='alert-success';
+                      if(action=='edit') {
+
+                        var tr = $('a[rel="'+id+'"]').parents('tr');
+                        
+                        tr.children('td.title').html(title);
+                        tr.children('td.text').html(shortContent);
+                        tr.children('td.link').html(linkString);
+                        tr.children('td.url').html(linkUrl);
+                        tr.find("input.box-link").val(link);
+                        tr.find("input.box-text").val(content);
+                    
+                      } else if(action=='add') {
+
+                        if ($('#product-table').find('tr.category-row').last().hasClass('alternate-row')) bgColor = '';
+                        newTr = '<tr class="'+bgColor+'"><td><input  type="checkbox"/></td><td class="title">'+title+'</td><td class="text">'+shortContent+'...</td><td class="link">'+linkString+'</td><td class="url">'+url+'</td><td class="active" rel="0">nie</td><td class="options-width"><a href="" rel="'+id+'" type="edit" title="Edytuj box" class="icon-1 info-tooltip btn-setting"></a><a href="" rel="'+id+'" type="active" title="Aktywuj/deaktywuj box" class="icon-3 info-tooltip btn-setting"></a><a href="/admin/box/delete/'+id+'" title="Usuń box" class="icon-2 info-tooltip"></a><input type="hidden" value="'+link+'" class="box-link"><input type="hidden" value="'+text+'" class="box-text"></td></tr>';
+                        $('#product-table').append(newTr);
+                          
+                      }
+                          
+                  } else if(data['error']==1) clss='alert-error';
+                
+                 msg='<div class="alert '+clss+' ">'+data['msg']+'</div>';
+                  $('.control-group').prepend(msg);
+                },
+            error: function(xhr,textStatus,err)
+                {
+                    console.log("readyState: " + xhr.readyState);
+                    console.log("responseText: "+ xhr.responseText);
+                    console.log("status: " + xhr.status);
+
+                }
+        });
+    };
+    
+function activ(id) {
+        $.ajax({
+            type: "POST",
+            url: '/admin/box/active',
+            data: {id : id},
+            dataType: 'json',
+            beforeSend: function(){
+            $('#ajax-loader-small').show();
+            },
+            success: function(data) {
+         
+                var tr = $('a[rel="'+id+'"]').closest('tr'),
+                    active = '';        
+                  
+                $('#ajax-loader-small').hide();
+                
+                if(data['error']==0) { 
+                      if(data['active']==1)active='tak'; else active='nie';
+                      tr.find('td.active').html(active);
+                          
+                  } else if(data['error']==1) alert(data['msg']);
+
+                },
+            error: function(xhr,textStatus,err)
+                {
+                    console.log("readyState: " + xhr.readyState);
+                    console.log("responseText: "+ xhr.responseText);
+                    console.log("status: " + xhr.status);
+
+                }
+        });
+}
