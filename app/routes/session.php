@@ -29,7 +29,7 @@ $app->get('/uprawnienia', function () use ($app) {
 $app->get('/kontakt', function () use ($app) {
 
    // $fotos = Model::factory('Foto')->order_by_asc('pos')->find_many();
-    $app->render('contact.php', array('menuid'=>'5'));
+    $app->render('contact.html.twig', array('menuid'=>'5'));
 });
 
 
@@ -84,10 +84,10 @@ $app->post('/kontakt', function () use ($app) {
      if(!$mail->Send()) {
           //echo 'Wiadomość nie została wysłana.';
           //echo 'Mailer Error: ' . $mail->ErrorInfo;
-          $app->render('contact.php', array('menuid'=>'4','error'=>'Wiadomość nie została wysłana.'));
+          $app->render('contact.html.twig', array('menuid'=>'4','error'=>'Wiadomość nie została wysłana.'));
           exit;
     } else {
-        $app->render('contact.php', array('menuid'=>'4','error'=>'Wiadomość została wysłana.'));
+        $app->render('contact.html.twig', array('menuid'=>'4','error'=>'Wiadomość została wysłana.'));
     }
   }
 

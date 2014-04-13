@@ -1,0 +1,121 @@
+{% extends 'layout.php' %}
+
+{% block page_title %}Internet przewody{% endblock %}
+{% block content %} 
+<!-- start content-outer ........................................................................................................................START -->
+<div id="content-outer">
+<!-- start content -->
+<div id="content">
+
+	<!--  start page-heading -->
+	<div id="page-heading">
+		<h1>Lista miast</h1>
+	</div>
+	<!-- end page-heading -->
+        <a href="" id="add-box" class="btn btn-large btn-primary">Dodaj miasto</a>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+	<tr>
+		<th rowspan="3" class="sized"><img src="/public/admin/img/shared/side_shadowleft.jpg" width="20" height="300" alt="" /></th>
+		<th class="topleft"></th>
+		<td id="tbl-border-top">&nbsp;</td>
+		<th class="topright"></th>
+		<th rowspan="3" class="sized"><img src="/public/admin/img/shared/side_shadowright.jpg" width="20" height="300" alt="" /></th>
+	</tr>
+	<tr>
+		<td id="tbl-border-left"></td>
+		<td>
+		<!--  start content-table-inner ...................................................................... START -->
+		<div id="content-table-inner">
+		
+			<!--  start table-content  -->
+			<div id="table-content">
+                                
+
+				<!--  start product-table ..................................................................................... -->
+				<form id="mainform" action="">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+				<tr>
+					<th class="table-header-check"><a id="toggle-all" ></a> </th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="">Nazwa</a></th>
+                    <th class="table-header-options line-left"><a href="">Options</a></th>
+				</tr>
+                           {% for city in cities %}
+				<tr class="category-row{% if loop.index is divisibleby(2) %} alternate-row{% endif %}" >
+					<td><input  type="checkbox"/></td>
+					<td class="title">{{ city.name }}</td>
+					<td class="options-width">
+					<a href="" rel="{{ city.id_city }}" type="edit" title="Edytuj city" class="icon-1 info-tooltip btn-setting"></a>
+                                        <a href="" rel="{{ city.id_city }}" type="active" title="Aktywuj/deaktywuj city" class="icon-3 info-tooltip "></a>
+                                        <a href="/admin/city/delete/{{ city.id_city }}" title="Usuń city" class="icon-2 info-tooltip"></a>
+                                        <input type="hidden" value="{{ city.link }}" class="city-link">
+                                        <input type="hidden" value="{{ city.text }}" class="city-text">
+					</td>
+				</tr>
+                                
+                        {% else %}  
+                            <tr><td colspan="3"><p>Brak miast</p></td></tr>
+                        {% endfor %}
+
+				
+				</table>
+				<!--  end product-table................................... --> 
+				</form>
+			</div>
+			<!--  end content-table  -->
+
+			<div class="clear"></div>
+		 
+		</div>
+		<!--  end content-table-inner ............................................END  -->
+		</td>
+		<td id="tbl-border-right"></td>
+	</tr>
+	<tr>
+		<th class="sized bottomleft"></th>
+		<td id="tbl-border-bottom">&nbsp;</td>
+		<th class="sized bottomright"></th>
+	</tr>
+	</table>
+	<div class="clear">&nbsp;</div>
+
+</div>
+<!--  end content -->
+<div class="clear">&nbsp;</div>
+</div>
+<!--  end content-outer........................................................END -->
+
+		<div class="modal hide fade" id="myModal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="control-group">
+                    <div id="left">
+                        <h3>Ustawienia</h3>
+                        <div id="dragStart"></div>
+                        <div id="dropHere">
+                            <div id="dragThis">
+                            </div>
+                        </div>
+                        <p>Zaznacz za pomocą znacznika miasto na mapie</p>
+                    </div>
+                    <div id="right">
+                        <label for="city">Wpisz nazwę miasta, które chcesz dodać</label>
+                        <input type="text" id="city" name="city" placeholder="Miasto" value="">
+                    </div>
+                    <input type="hidden" id="posx" name="posx" value="">
+                    <input type="hidden" id="posy" name="posy" value="">
+                    <input type="hidden" id="id" name="id" value="">
+                    <input type="hidden" id="action" name="action" value="add">
+                </div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Zamknij</a>
+        <a id="savename" class="btn btn-primary">Zapisz zmiany</a>
+        <div id="ajax-loader-container" style="width:16px; display:inline-block; height: 18px; vertical-align:middle;">
+          <div id="ajax-loader-small" style="display:none;"><img src="/public/admin/img/ajax-loaders/ajax-loader-1.gif"></div>
+        </div>
+                               
+			</div>
+		</div>
+{% endblock %}

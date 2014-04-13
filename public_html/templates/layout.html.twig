@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/vendor/modernizr.js"></script>
+</head>
+<body>
+<div class="off-canvas-wrap">
+
+    <div class="inner-wrap">
+
+        <div class="row">
+            <nav class="top-bar tab-bar" data-topbar>
+                <ul class="title-area left">
+                    <li class="name">
+                        <h1><a href="#"><img src="images/logo.png" alt="Vasectomis"</a></h1>
+                    </li>
+
+                </ul>
+
+                <section class="top-bar-section  hide-for-small">
+                    <!-- Right Nav Section -->
+                    <ul class="right">
+                        <li class="<?php print $classHome?>"><a href="/">Wazektomia</a></li>
+                        <li class="<?php print $classKroki?>"> <a href="?p=krok">Krok po kroku</a></li>
+                        <li class="<?php print $classPlacowki?>"> <a href="?p=placowki">Placówki</a></li>
+                        <li> <a href="#">Dokumenty</a></li>
+                        <li> <a href="#">Cennik</a></li>
+                        <li class="<?php print $classKontakt?>"> <a href="?p=kontakt">Kontakt</a></li>
+                    </ul>
+                </section>
+                <a class="right-off-canvas-toggle menu-icon right show-for-small active">
+                    <span></span> MENU
+                </a>
+            </nav>
+
+        </div>
+        <aside class="right-off-canvas-menu">
+            <div class="off-canvas-menu-label">MENU</div>
+            <ul class="off-canvas-list">
+                <li class="<?php print $classHome?>"><a href="/">Wazektomia</a></li>
+                <li class="<?php print $classKroki?>"> <a href="?p=krok">Krok po kroku</a></li>
+                <li class="<?php print $classPlacowki?>"> <a href="?p=placowki">Placówki</a></li>
+                <li > <a href="#">Dokumenty</a></li>
+                <li> <a href="#">Cennik</a></li>
+                <li class="<?php print $classKontakt?>"> <a href="?p=kontakt">Kontakt</a></li>
+            </ul>
+        </aside>
+        <a class="exit-off-canvas"></a>
+        <section role="main" class="scroll-container">
+            <div class="row">
+                <div class="tagline1 large-12 columns">
+                    <div class="boxabout small-block-grid-12 medium-block-grid-4">
+                        <h3>Czym jest <strong>wazektomia?</strong></h3>
+                        <div class="subtitle">ODPOWIEDZIALNY MĘŻCZYZNA</div>
+                        <a href="#" class="button">Dowiedz się więcej</a>
+                    </div>
+                    <ul class="langmenu">
+                        <li><a href="#" class="pl">pl</a></li>
+                        <li><a href="#" class="en">en</a></li>
+                        <li><a href="#" class="de">de</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            {% block content %} {% endblock %}
+
+            <section>
+                <div class="row top-offset">
+                    <div class="columns small-12 footer_menu">
+                        <div class="columns small-11  medium-4 large-3 large-offset-0 footer-menu-box">
+                            <div class="menu_heading">Wazektomia</div>
+                            <ul>
+                                <li><a href="#">Czym jest wazektomia?</a></li>
+                                <li><a href="#">Jak przygotować się do zabiegu?</a></li>
+                                <li><a href="#">Jakie wykonać badania?</a></li>
+                                <li><a href="#">Najczęściej zadawane pytania</a></li>
+                            </ul>
+                        </div>
+                        <div class="columns small-11 large-offset-0 medium-3 large-3 footer-menu-box">
+                            <div class="menu_heading">Vasotomia</div>
+                            <ul>
+                                <li><a href="#">Rejestracja telefoniczna</a></li>
+                                <li><a href="#">Dokumenty i formularze</a></li>
+                                <li><a href="#">Nasze placówki</a></li>
+                                <li><a href="#">Terminy zabiegu</a></li>
+                            </ul>
+                        </div>
+                        <div class="columns small-12 medium-5 large-6 info-boxes">
+                            <div class="columns small-3 medium-3 circle-parent large-offset-2">
+                                <div class="circle phone_register"></div>
+                            </div>
+                            <div class="columns small-12 medium-9 large-5 end">
+                                <h4>Rejestracja telefoniczna</h4>
+                                <p>Zadzwoń i umów się na wizytę.<br><strong class="phone">+48 690 140 840</strong><a href="#" class="mail">rejestracja@vasotomia.pl</a></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-offset">
+                    <div class="columns small-12 footer_info">
+                        © 2014 Vasotomia. Wszelkie prawa zastrzeżone.
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div></div>
+<script src="js/vendor/jquery.js"></script>
+<script src="js/jquery.swipe.js"></script>
+<script src="js/foundation.min.js"></script>
+<script src="js/foundation/foundation.offcanvas.js"></script>
+<script>
+    $(document).foundation();
+    $("body").swipe({
+        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+            $('.right-off-canvas-toggle').trigger('click');}
+    });
+</script>
+
+</body>
+</html>

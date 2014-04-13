@@ -1,8 +1,8 @@
 <?php
  
 $auth=function () use($app) {
-    if(!isset($_SESSION['id_user']))
-    $app->redirect('/admin/logowanie');    
+    //if(!isset($_SESSION['id_user']))
+    //$app->redirect('/admin/logowanie');
 };
 
 
@@ -12,45 +12,50 @@ $app->get('/admin', function () use ($app) {
 });
 
 $app->get('/admin/', $auth, function () use ($app) {
-    $app->redirect('/admin/box/all');
+    $app->redirect('/admin/city');
 });
 
 /*
- * Boxes ......................................................................
+ * Cities ......................................................................
  */
 
-$app->get('/admin/box/all', $auth, function () use ($admin) {
+$app->get('/admin/city', $auth, function () use ($admin) {
     
-    $boxes = Model::factory('Box')->find_many();
+    $cities = Model::factory('City')->find_many();
 
-    $admin->render('/box/all.php',array('boxes'=>$boxes));
+    $admin->render('/city/all.html.twig',array('city'=>$cities));
     
     $_SESSION['msg'] = '';
 });
 
 
 /*
- * Box edit
+ * City edit
  */
 
-$app->post('/admin/box/edit', $auth, function () use ($app) {
+$app->get('/admin/city/edit', $auth, function () use ($admin) {
+
+
+});
+
+$app->post('/admin/city/edit', $auth, function () use ($app) {
  
     //id : id, title : title, content : content, link : link, url : url
-    $box = Model::factory('Box')->find_one($app->request()->post('id'));
+    $city = Model::factory('City')->find_one($app->request()->post('id'));
     
-    if($box instanceof Box) {
+    if($city instanceof City) {
         try {
             $title = $app->request()->post('title');
             $content = $app->request()->post('content');
             $link = $app->request()->post('link');
             $url = $app->request()->post('url');
             
-            $box->title = $title;
-            $box->text = $content;
-            $box->link = $link;
-            $box->url = $url;
+            $city->title = $title;
+            $city->text = $content;
+            $city->link = $link;
+            $city->url = $url;
             
-            if(!$box->save())   throw new Exception('Któraś z danych jest niepoprawna');
+            if(!$city->save())   throw new Exception('Któraś z danych jest niepoprawna');
         } catch (Exception $e) {
             print json_encode(array('error'=>1, 'msg'=>'Błąd! '.$e->getMessage()));
             exit();
@@ -64,11 +69,12 @@ $app->post('/admin/box/edit', $auth, function () use ($app) {
 
 
  /*
- * Box add
+ * City add
  */
 
-$app->post('/admin/box/add', $auth, function () use ($app) {
- 
+$app->post('/admin/city/add', $auth, function () use ($app) {
+    print json_encode($app->request()->post());
+ /*
     $title = $app->request()->post('title');
     $content = $app->request()->post('content');
     $link = $app->request()->post('link');
@@ -94,14 +100,14 @@ $app->post('/admin/box/add', $auth, function () use ($app) {
         print json_encode(array('error'=>0, 'msg'=>'Boks został dodany.'));
         
     } else print json_encode(array('error'=>1, 'msg'=>'Błąd! Problem z tytułem i zawartością boxa.'));
-
+*/
  });
  
  
  /*
- * Box delete
+ * City delete
  */
-$app->get('/admin/box/delete/:id', $auth, function ($id) use ($admin) {
+$app->get('/admin/city/delete/:id', $auth, function ($id) use ($admin) {
     $box = Model::factory('Box')->find_one($id);
     
     if($box instanceof Box) {
@@ -113,14 +119,14 @@ $app->get('/admin/box/delete/:id', $auth, function ($id) use ($admin) {
         $_SESSION['msg']='Błąd! Spróbuj później.';
     }
 
-    $admin->app->redirect('/admin/box/all');
+    $admin->app->redirect('/admin/city/all');
 });
 
  
 /*
  * Box active
  */
-$app->post('/admin/box/active', $auth, function () use ($app) {
+$app->post('/admin/city/active', $auth, function () use ($app) {
     $box = Model::factory('Box')->find_one($app->request()->post('id'));
     
     if($box instanceof Box) {

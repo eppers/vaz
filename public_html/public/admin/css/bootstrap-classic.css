@@ -4180,7 +4180,7 @@ input[type="submit"].btn.btn-mini {
   top: 50%;
   left: 50%;
   z-index: 1050;
-  width: 560px;
+  width: 760px;
   margin: -250px 0 0 -280px;
   overflow: auto;
   background-color: #ffffff;
@@ -4221,13 +4221,57 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal-body {
-  max-height: 400px;
+  max-height: 700px;
   padding: 15px;
   overflow-y: auto;
 }
 
 .modal-form {
   margin-bottom: 0;
+}
+
+.modal-body .control-group label {
+    color: #8a8787;
+}
+
+.modal-body .control-group #left, .modal-body .control-group #right {
+    vertical-align: top;
+}
+
+.modal-body .control-group #left {
+    width: 300px;
+    display: inline-block;
+    height: 400px;
+    background: url("../img/vazektomia/add_city_bg.jpg") no-repeat right top;
+    padding: 0 60px 0 40px;
+    position: relative;
+}
+
+.modal-body .control-group #left h3{
+    padding-top: 30px;
+    margin:0 0 35px 40px;
+    color: #fff;
+}
+
+.modal-body .control-group #left p {
+    color: #fff;
+    font-size: 1em;
+    position: absolute;
+    bottom: 30px;
+    left: 15px;
+}
+
+.modal-body .control-group #left #dragStart {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    background: #fff;
+    left: 30px;
+}
+
+.modal-body .control-group #right {
+    display: inline-block;
+    padding-top: 100px;
 }
 
 .modal-footer {

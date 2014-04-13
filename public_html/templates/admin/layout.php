@@ -50,7 +50,7 @@ $(function(){
 	return false;
 	});
 });
-</script>  
+</script>
 
 <![if !IE 7]>
 
@@ -288,6 +288,6 @@ $(document).pngFix( );
 	<script src="/public/admin/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="/public/admin/js/charisma.js"></script>
-        
+    <script src="/public/admin/js/jquery-ui-1.10.4.custom.min"></script>
 </body>
 </html>

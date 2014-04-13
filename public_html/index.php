@@ -18,9 +18,10 @@ require '../conf.php';
 
 //Models
 
-require '../models/Box.php';
-require '../models/Site.php';
-require '../models/User.php';
+require '../models/City.php';
+require '../models/CityName.php';
+//require '../models/Site.php';
+//require '../models/User.php';
 
 use Slim\Extras\Views\Twig as Twig;
  

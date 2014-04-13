@@ -22,8 +22,8 @@
 // * Coordsize. The width and height attribute have higher priority than the
 //   width and height style values which isn't correct.
 // * Painting mode isn't implemented.
-// * Canvas width/height should is using content-box by default. IE in
-//   Quirks mode will draw the canvas using border-box. Either change your
+// * Canvas width/height should is using content-city by default. IE in
+//   Quirks mode will draw the canvas using border-city. Either change your
 //   doctype to HTML5
 //   (http://www.whatwg.org/specs/web-apps/current-work/#the-doctype)
 //   or use Box Sizing Behavior from WebFX
@@ -841,7 +841,7 @@ if (!document.createElement('canvas').getContext) {
                   'Dx=', mr(d.x / Z), ',',
                   'Dy=', mr(d.y / Z), '');
 
-      // Bounding box calculation (need to minimize displayed area so that
+      // Bounding city calculation (need to minimize displayed area so that
       // filters don't waste time on unused pixels.
       var max = d;
       var c2 = this.getCoords_(dx + dw, dy);

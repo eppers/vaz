@@ -1545,7 +1545,7 @@ jQuery.support = (function() {
 		// (IE <= 8 fail this test)
 		support.reliableHiddenOffsets = isSupported && ( tds[ 0 ].offsetHeight === 0 );
 
-		// Figure out if the W3C box model works as expected
+		// Figure out if the W3C city model works as expected
 		div.innerHTML = "";
 		div.style.width = div.style.paddingLeft = "1px";
 		jQuery.boxModel = support.boxModel = div.offsetWidth === 2;

@@ -142,7 +142,7 @@ function docReady(){
 	//makes elements soratble, elements that sort need to have id attribute to save the result
 	$('.sortable').sortable({
 		revert:true,
-		cancel:'.btn,.box-content,.nav-header',
+		cancel:'.btn,.city-content,.nav-header',
 		update:function(event,ui){
 			//line below gives the ids of elements, you can make ajax call here to save it to the database
 			//console.log($(this).sortable('toArray'));

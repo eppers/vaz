@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_title %}Kontakt{% endblock %}
+{% block content %}
+<section>
+    <div class="row">
+        <div class="columns small-12 zabieg">
+            Nie wiesz jak przygotować się do zabiegu? Co masz z sobą zabrać? Krótki poradnik krok po kroku...
+        </div>
+    </div>
+    <div class="row top-offset kontakt-details">
+        <div class="columns small-11 small-centered medium-9 medium-centered large-uncentered large-6 timeline">
+            <form>
+                <input type="text" placeholder="Imię i nazwisko">
+                <input type="text" placeholder="Email">
+                <input type="text" placeholder="Telefon">
+                <textarea rows="10" placeholder="Treść wiadomości"></textarea>
+            </form>
+            <div class="text-right">
+                <a href="" class="button">WYŚLIJ</a>
+            </div>
+        </div>
+        <div id="kontakt" class="columns small-12 medium-9 medium-centered large-uncentered  large-6 end">
+            <h4>Dane kontaktowe:</h4>
+            <section class="steps top-offset">
+                <div class="row step top-offset">
+                    <div class="columns large-2 small-3 small-centered medium-2 medium-uncentered step-circle">
+                        <div class="img_wrapper"><img src="images/krok1.png"></div>
+                    </div>
+                    <div class="columns large-7 small-12 medium-7 step-textbox end">
+                        <h4 class="no-border">Kontakt i rejestracja telefoniczna</h4>
+                        <div class="text-left"><a href="#" class="button">+48 690 140 840</a></div>
+                    </div>
+                </div>
+            </section>
+            <section class="steps top-offset">
+                <div class="row step top-offset">
+                    <div class="columns large-2 small-3 small-centered medium-2 medium-uncentered step-circle">
+                        <div class="img_wrapper"><img src="images/krok4.png"></div>
+                    </div>
+                    <div class="columns large-7 small-12 medium-7 step-textbox end">
+                        <h4 class="no-border">Kontakt poprzez mail</h4>
+                        <div class="text-left"><a href="#" class="button">rejestracja@vasotomia.pl</a></div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
