@@ -1,13 +1,25 @@
 <?php
 
+//TODO w layoucie zrobic adresy z funkcja przeksztalcajaca nazwe na SEO URL
+
+/*
+ * Stosowne menu dla danego języka
+ */
+$app->hook('slim.before.dispatch', function() use ($app) {
+    $menuTop = Model::factory(Menu)->where('position','top')->filter('getAllNames','pl')->order_by_asc('order')->find_many();
+    $app->view()->setData('topMenu', $menuTop);
+});
+
+
 /*
  * Wyświetlenie strony głównej
  */
 $app->get('/', function () use ($app) {
 
-    $boxes = Model::factory('Box')->where('active','1')->order_by_asc('id_box')->limit(3)->find_many();
-    
-    $app->render('home.php', array('menuid'=>'', 'boxes'=>$boxes)); 
+    $site = Model::factory('Site')->find_one(1);
+    $steps = $site->steps()->find_many();
+
+    $app->render('vazectomia.html.twig', array('menuid'=>1, 'steps'=>$steps));
 });
 
 

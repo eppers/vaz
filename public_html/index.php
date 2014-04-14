@@ -14,14 +14,14 @@ require '../lib/Admin_class.php';
 require '../lib/functions.php';
 require '../lib/PHPMailer/class.phpmailer.php';
 
+require '../lib/autoloader.php';
+
 require '../conf.php';
 
 //Models
 
-require '../models/City.php';
-require '../models/CityName.php';
-//require '../models/Site.php';
-//require '../models/User.php';
+
+
 
 use Slim\Extras\Views\Twig as Twig;
  

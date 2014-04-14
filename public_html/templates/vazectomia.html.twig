@@ -1,0 +1,162 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_title %}Wazektomia{% endblock %}
+{% block content %}
+    <div class="row top-offset info-boxes">
+        <div class="columns medium-5 medium-offset-1 large-4 large-offset-0">
+            <div class="row">
+                <div class="columns small-3 circle-parent">
+                    <div class="circle phone_register"></div>
+                </div>
+                <div class="columns small-9">
+                    <h4>Rejestracja telefoniczna</h4>
+                    <p>Zadzwoń i umów się na wizytę.<br><strong class="phone">+48 690 140 840</strong></p>
+                    <div class="text-right"><a href="#" class="button">więcej</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="columns medium-5 large-4">
+            <div class="row">
+                <div class="columns small-3 circle-parent">
+                    <div class="circle places"></div>
+                </div>
+                <div class="columns small-9">
+                    <h4>Nasze placówki</h4>
+                    <p>Współpracujemy z wybranymi placówkami
+                        na terenie całej Polski wprowadzając
+                        jednolite standardy zabiegowe.</p>
+                    <div class="text-right"><a href="#" class="button">więcej</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="columns medium-5 medium-centered large-4 large-uncentered">
+            <div class="row">
+                <div class="columns small-3 circle-parent">
+                    <div class="circle docs"></div>
+                </div>
+                <div class="columns small-9">
+                    <h4>Dokumenty i formularze</h4>
+                    <p>Zapoznaj się z dokumentami i formularzami
+                        niezbędnymi do wykonania zabiegu.</p>
+                    <div class="text-right"><a href="#" class="button">więcej</a></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="row top-offset">
+            <div class="columns small-12 zabieg">
+                Nie wiesz jak przygotować się do zabiegu? Co masz z sobą zabrać? Krótki poradnik krok po kroku...
+            </div>
+        </div>
+        <div class="row top-offset">
+            <div class="columns small-11 small-centered medium-9 medium-centered large-uncentered large-6 timeline">
+                <div class="line"></div>
+                <ul>
+                    <li class="active">
+                        <div class="text">
+                            <p>
+                                {{ steps[0].text|raw }}
+                            </p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </li>
+                    <li>
+                        <div class="text">
+                            <p>
+                                {{ steps[1].text|raw }}
+                            </p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </li>
+                    <li>
+                        <div class="text">
+                            <p>
+                                {{ steps[2].text|raw }}
+                            </p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </li>
+                    <li>
+                        <div class="text">
+                            <p>
+                                {{ steps[3].text|raw }}
+                            </p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </li>
+                    <li>
+                        <div class="text">
+                            <p>
+                                {{ steps[4].text|raw }}
+                            </p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="columns small-12 medium-9 medium-centered large-uncentered  large-6 end">
+                <div class="flex-video">
+                    {{ steps[5].text|raw }}
+                </div>
+            </div>
+            <div class="columns small-11 small-centered medium-9 medium-centered large-uncentered large-6 timeline">
+                <ul>
+                    <li class="callus">
+                        <div class="text">
+                            <p>
+                                {{ steps[6].text|raw }}
+                            </p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row places">
+            <div class="topline"></div>
+            <div class="columns small-12 medium-5 large-6 greenbox">
+                <h2>Nasze placówki</h2>
+                <div id="map">
+                    <ul class="cities">
+                        <li class="city warszawa" style="left:10px; top:20px;"></li>
+                        <li class="city warszawa" style="left:20px; top:70px;"></li>
+                        <li class="city warszawa" style="left:90px; top:42px;"></li>
+                        <li class="city warszawa" style="left:48px; top:82px;"></li>
+                        <li class="city warszawa active" style="left:50px; top:123px;"></li>
+                        <li class="city warszawa" style="left:62px; top:164px;"></li>
+                        <li class="city warszawa" style="left:53px; top:34px;"></li>
+                        <li class="city warszawa" style="left:132px; top:71px;"></li>
+                        <li class="city warszawa" style="left:182px; top:12px;"></li>
+                        <li class="city warszawa" style="left:144px; top:94px;"></li>
+                        <li class="city warszawa" style="left:100px; top:7px;"></li>
+                    </ul>
+                </div>
+                <div class="topline"></div>
+                <div class="selectplace2">
+                    Wybierz odpowiednią placówkę
+                </div>
+                <div class="show-for-small show2">
+                    <div class="selectplace">
+                        Wybierz odpowiednią placówkę
+                    </div>
+                </div>
+            </div>
+            <div class="columns small-6 graybox hide2 place-details">
+                <h3>Warszawa</h3>
+                <div class="actionbox">
+                    <div class="textlabel">Wybierz dogodny dla Ciebie termin zabiegu:</div>
+                    <a href="#" class="button">Wolne terminy</a>
+                </div>
+                <div class="actionbox">
+                    <div class="textlabel">Zadzwoń i zarejestruj się telefonicznie:</div>
+                    <a href="#" class="button">Rejestracja</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

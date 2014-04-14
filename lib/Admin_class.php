@@ -16,7 +16,7 @@ class Admin {
 
     
     public function index() {
-        $this->render('home.php');
+        $this->render('vazectomia.html.twig');
     }
 
     public function render($template) {

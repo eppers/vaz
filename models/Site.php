@@ -9,8 +9,12 @@
 
 class Site extends Model{
         
-    public static $_table = 'sites';
+    public static $_table = 'Sites';
     public static $_id_column = 'id_site';
+
+    function steps() {
+        return $this->has_many('Step', 'id_site');
+    }
     
 }
 ?>
