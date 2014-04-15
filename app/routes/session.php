@@ -1,12 +1,20 @@
 <?php
 
-//TODO w layoucie zrobic adresy z funkcja przeksztalcajaca nazwe na SEO URL
+//TODO miasta zapis do bazy i generowanie na stronie
+//TODO wyswietlanie stron i boxow w adminie
 
 /*
  * Stosowne menu dla danego języka
  */
 $app->hook('slim.before.dispatch', function() use ($app) {
     $menuTop = Model::factory(Menu)->where('position','top')->filter('getAllNames','pl')->order_by_asc('order')->find_many();
+    foreach($menuTop as &$menu) {
+        $menuTmp = new stdClass();
+        $menuTmp = $menu;
+        $menuTmp->url = cleanForShortURL($menu->name);
+        $menu = $menuTmp;
+    }
+
     $app->view()->setData('topMenu', $menuTop);
 });
 
@@ -16,12 +24,22 @@ $app->hook('slim.before.dispatch', function() use ($app) {
  */
 $app->get('/', function () use ($app) {
 
-    $site = Model::factory('Site')->find_one(1);
+    $site = Model::factory('Site')->filter('getName','pl')->find_one(1);
     $steps = $site->steps()->find_many();
 
     $app->render('vazectomia.html.twig', array('menuid'=>1, 'steps'=>$steps));
 });
 
+/*
+ * Wyświetlanie strony za pomocą ID
+ */
+$app->get('/:id,:slug', function ($id) use ($app) {
+
+    $site = Model::factory('Site')->find_one(intval($id));
+    $steps = $site->steps()->find_many();
+
+    $app->render($site->template.'.html.twig', array('menuid'=>1, 'steps'=>$steps));
+});
 
 
 

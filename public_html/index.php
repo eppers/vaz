@@ -26,6 +26,7 @@ require '../conf.php';
 use Slim\Extras\Views\Twig as Twig;
  
 $app = new Slim(array(
+    'debug' => true,
     'log.enabled'    => true,
     'log.writer' => new \Slim\Extras\Log\DateTimeFileWriter(array(
         'path' => '../logs',
