@@ -106,8 +106,9 @@ function addedit(action, id, x, y, city) {
             $('#ajax-loader-small').show();
             },
             success: function(data) {
+                $('#ajax-loader-small').hide();
                 console.log(data);
-         /*
+
                   var clss='',
                       newTr= '',
                       bgColor = 'alternate-row',
@@ -117,9 +118,9 @@ function addedit(action, id, x, y, city) {
 
                       if(link==1)linkString='tak'; else linkString='nie';
                 
-                  $('#ajax-loader-small').hide();
+//TODO sprawdzic czy dodaje do tabeli miasto
                 
-                  if(data['error']==0) { 
+                  if(data['status']==true) {
                       clss='alert-success';
                       if(action=='edit') {
 
@@ -144,7 +145,7 @@ function addedit(action, id, x, y, city) {
                 
                  msg='<div class="alert '+clss+' ">'+data['msg']+'</div>';
                   $('.control-group').prepend(msg);
-                */
+
                 },
             error: function(xhr,textStatus,err)
                 {

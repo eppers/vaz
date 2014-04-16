@@ -21,9 +21,9 @@ $app->get('/admin/', $auth, function () use ($app) {
 
 $app->get('/admin/city', $auth, function () use ($admin) {
     
-    $cities = Model::factory('City')->find_many();
+    $cities = Model::factory('City')->filter('getManyCitiesNames','pl')->find_many();
 
-    $admin->render('/city/all.html.twig',array('city'=>$cities));
+    $admin->render('/city/all.html.twig',array('cities'=>$cities));
     
     $_SESSION['msg'] = '';
 });
@@ -33,10 +33,6 @@ $app->get('/admin/city', $auth, function () use ($admin) {
  * City edit
  */
 
-$app->get('/admin/city/edit', $auth, function () use ($admin) {
-
-
-});
 
 $app->post('/admin/city/edit', $auth, function () use ($app) {
  
@@ -73,35 +69,19 @@ $app->post('/admin/city/edit', $auth, function () use ($app) {
  */
 
 $app->post('/admin/city/add', $auth, function () use ($app) {
-    print json_encode($app->request()->post());
- /*
-    $title = $app->request()->post('title');
-    $content = $app->request()->post('content');
-    $link = $app->request()->post('link');
-    $url = $app->request()->post('url');
-    
-    
-    if(isset($title) && isset($content)) {
-        $box = Model::factory('Box')->create();
-        
-        try {
-            
-            $box->title = $title;
-            $box->text = $content;
-            $box->link = $link;
-            $box->url = $url;
-            
-            if(!$box->save())   throw new Exception('Któraś z danych jest niepoprawna');
-        }catch(Exception $e) {
-            print json_encode(array('error'=>1, 'msg'=>'Błąd! '.$e->getMessage()));
-            exit();
-        }
-        
-        print json_encode(array('error'=>0, 'msg'=>'Boks został dodany.'));
-        
-    } else print json_encode(array('error'=>1, 'msg'=>'Błąd! Problem z tytułem i zawartością boxa.'));
-*/
- });
+    $city = Model::factory('City')->create();
+    $city->x_pos = intval($app->request()->post('x'));
+    $city->y_pos = intval($app->request()->post('y'));
+    $city->save();
+
+    $cityName = Model::factory('CityName')->create();
+    $cityName->id_city = $city->id();
+    $cityName->lang = 'pl'; //TODO wstawić język w zależności od wersji językowej w adminie
+    $cityName->name = clearName($app->request()->post('city'));
+    $cityName->save();
+
+    print json_encode(array('status'=>true));
+  });
  
  
  /*

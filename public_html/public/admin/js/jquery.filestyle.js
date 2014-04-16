@@ -17,7 +17,6 @@
     
     $.fn.filestyle = function(options) {
                 
-        /* TODO: This should not override CSS. */
         var settings = {
             width : 250
         };

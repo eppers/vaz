@@ -51,7 +51,6 @@
 				.bind('focus.checkBox blur.checkBox', toggleHover);
 				
 			if(opts.addLabel){
-				//ToDo: Add Closest Ancestor
 				this.labels = $('label[for=' + this.element.attr('id') + ']')
 					.bind('mouseenter.checkBox mouseleave.checkBox', toggleHover);
 			}

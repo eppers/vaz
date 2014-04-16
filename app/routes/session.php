@@ -1,7 +1,6 @@
 <?php
 
 //TODO miasta zapis do bazy i generowanie na stronie
-//TODO wyswietlanie stron i boxow w adminie
 
 /*
  * Stosowne menu dla danego języka

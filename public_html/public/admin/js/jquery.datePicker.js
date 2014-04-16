@@ -522,7 +522,7 @@
 		// private function called on unload to clean up any expandos etc and prevent memory links...
 		_dpDestroy : function()
 		{
-			// TODO - implement this?
+
 		}
 	});
 	
@@ -942,7 +942,6 @@
 							if (c.closeOnSelect) {
 								c._closeCalendar();
 							}
-							// TODO: Instead of this which doesn't work in IE anyway we should find the next focusable element in the document
 							// and pass the focus onto that. That would allow the user to continue on the form as expected...
 							if (!$.browser.msie)
 							{
@@ -1011,7 +1010,6 @@
 				);
 				
 				// update the status of the control buttons and disable dates before startDate or after endDate...
-				// TODO: When should the year buttons be disabled? When you can't go forward a whole year from where you are or is that annoying?
 				if (this.displayedYear == this.startDate.getFullYear() && this.displayedMonth == this.startDate.getMonth()) {
 					$('.dp-nav-prev-year', this.context).addClass('disabled');
 					$('.dp-nav-prev-month', this.context).addClass('disabled');
@@ -1120,7 +1118,7 @@
 			// and expandos removed to avoid memory leaks...
 			_clearCalendar : function()
 			{
-				// TODO.
+
 				$('.dp-calendar td', this.context).unbind();
 				$('.dp-calendar', this.context).empty();
 			}
