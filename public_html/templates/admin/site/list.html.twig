@@ -37,23 +37,21 @@
 				<form id="mainform" action="">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
 				<tr>
-					<th class="table-header-check"><a id="toggle-all" ></a> </th>
+                    <th class="table-header-id table-header-repeat line-left"><a href="">Id</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Nazwa</a></th>
-                                        <th class="table-header-repeat line-left minwidth-1"><a href="">Link</a></th>
-                                        <th class="table-header-options line-left"><a href="">Opcje</a></th>
+                    <th class="table-header-options line-left"><a href="">Opcje</a></th>
 				</tr>
-                           {% for site in sites %}
-                            <tr {% if loop.index is divisibleby(2) %} class="alternate-row" {% endif %} {% if site.isCat == 1 %}style="background-color: #dedede;"{% endif %} >
-                                    <td><input  type="checkbox"/></td>
-                                    <td>{{ site.title }}</td>
-                                    <td>{{ site.link }}</td>
-                                    <td class="options-width">
-                                    <a href="/admin/site/edit/{{ site.id }}" title="Edytuj" class="icon-1 info-tooltip"></a>
-                                    </td>
-                            </tr>
-                            {% else %}  
-                                <tr><td colspan="5"><p>Brak pozycji</p></td></tr>
-                        {% endfor %}
+               {% for site in sites %}
+                <tr {% if loop.index is divisibleby(2) %} class="alternate-row" {% endif %} {% if site.isCat == 1 %}style="background-color: #dedede;"{% endif %} >
+                    <td>{{ site.id }}</td>
+                    <td>{{ site.title }}</td>
+                    <td class="options-width">
+                        <a href="/admin/site/edit/{{ site.id }}" title="Edytuj" class="icon-1 info-tooltip"></a>
+                    </td>
+                </tr>
+                {% else %}
+                    <tr><td colspan="3"><p>Brak pozycji</p></td></tr>
+                {% endfor %}
 
 				
 				</table>

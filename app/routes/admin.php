@@ -122,39 +122,13 @@ $app->get('/admin/city/delete/:id', $auth, function ($id) use ($admin) {
     $admin->app->redirect('/admin/city/all');
 });
 
- 
-/*
- * Box active
- */
-$app->post('/admin/city/active', $auth, function () use ($app) {
-    $box = Model::factory('Box')->find_one($app->request()->post('id'));
-    
-    if($box instanceof Box) {
-        try {
-            if($box->active == 0) $box->active = 1;
-            else $box->active = 0;
-            
-            if(!$box->save())   throw new Exception('Nie udało się aktywować/deaktywować boxa');
-        } catch (Exception $e) {
-            print json_encode(array('error'=>1, 'msg'=>'Błąd! '.$e->getMessage()));
-            exit();
-        }
-        
-        print json_encode(array('error'=>0, 'msg'=>'Box został wyedytowany', 'active'=>$box->active));
-    } else {
-        print json_encode(array('error'=>1, 'msg'=>'Błąd! Problem z ID boxa.'));
-    }
-});
-
-
-
 
 /*
  * Sites ......................................................................
  */
 $app->get('/admin/site/all', $auth, function () use ($admin) {
-    $sites=Model::factory('Site')->find_many();
-    $admin->render('/site/list.php',array('sites'=>$sites));
+    $sites=Model::factory('Site')->filter('getManySitesNames','pl')->find_many();
+    $admin->render('/site/list.html.twig',array('sites'=>$sites));
     
     $_SESSION['msg'] = '';
 });
@@ -168,8 +142,13 @@ $app->get('/admin/site/edit/:id', function ($id) use ($admin) {
     $site=Model::factory('Site')->find_one($id);
     
     if($site instanceof Site) {
-
-        $admin->render('/site/edit.php',array('site'=>$site, 'form'=>'edit'));
+        $steps = $site->steps()->where('lang','pl')->find_many();
+        foreach($steps as &$step) {
+            $step->text = prepareDbToHtml($step->text);
+        }
+        $siteLang = $site->getOneSiteName()->find_one();
+        $siteLang->text = prepareDbToHtml($siteLang->text);
+        $admin->render('/site/edit.html.twig',array('site'=>$siteLang, 'steps'=>$steps, 'form'=>'edit'));
     }
     else $admin->redirect('/admin/site/all');
 });
@@ -180,9 +159,18 @@ $app->post('/admin/site/edit/:id', $auth, function ($id) use ($admin) {
     
     if($site instanceof Site) {
 
-        $site->text   = $admin->app->request()->post('content');
-        $site->save();
-        
+        $siteLang = $site->getOneSiteName()->where('lang','pl')->find_one();
+        $siteLang->text   = prepareHtmlToDb($admin->app->request()->post('content'));
+        $siteLang->save();
+
+        $steps = $site->steps()->where('lang','pl')->find_many();
+        foreach($steps as $step) {
+            if($step instanceof Step) {
+                $step->text =  prepareHtmlToDb($admin->app->request()->post('krok_'.$step->id_step));
+                $step->save();
+            }
+        }
+
         $_SESSION['status']='0';
         $_SESSION['msg']='Strona została wyedytowana pomyślnie';
         
@@ -205,7 +193,7 @@ $app->get('/admin/user/edit', function () use ($admin) {
     
     if($user instanceof User) {
 
-        $admin->render('/user/edit.php',array('user'=>$site));
+        $admin->render('/user/edit.html.twig',array('user'=>$site));
     }
     else $admin->redirect('/admin/site/all');
 });

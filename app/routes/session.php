@@ -24,8 +24,8 @@ $app->hook('slim.before.dispatch', function() use ($app) {
  */
 $app->get('/', function () use ($app) {
 
-    $site = Model::factory('Site')->filter('getName','pl')->find_one(1);
-    $steps = $site->steps()->find_many();
+    $site = Model::factory('Site')->find_one(1);
+    $steps = Model::factory('Step')->where(id_site,$site->id_site)->find_many();
 
     $app->render('vazectomia.html.twig', array('menuid'=>1, 'steps'=>$steps));
 });
@@ -37,7 +37,9 @@ $app->get('/:id,:slug', function ($id) use ($app) {
 
     $site = Model::factory('Site')->find_one(intval($id));
     $steps = $site->steps()->find_many();
-
+    foreach($steps as &$step) {
+        $step->text = prepareDbToHtml($step->text);
+    }
     $app->render($site->template.'.html.twig', array('menuid'=>1, 'steps'=>$steps));
 });
 

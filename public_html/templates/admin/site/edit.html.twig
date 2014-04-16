@@ -36,30 +36,45 @@
        
         <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
 
-                <tr>
-                    <th valign="top">Nazwa:</th>
-                    <td>{{site.title}}</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th valign="top">Treść:</th>
-                    <td>
-                        <div class="control-group">
-                                <div class="controls">
-                                    <textarea class="cleditor" id="textarea2" name="content" rows="3">{{site.text}}</textarea>
-                                </div>
+            <tr>
+                <th valign="top">Nazwa:</th>
+                <td>{{site.title}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th valign="top" colspan="2">Edycja elementów strony</th>
+            </tr>
+            {% for step in steps %}
+            <tr>
+                <th valign="top">Box {{ step.id_step }}:</th>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <textarea class="cleditor" name="krok_{{ step.id_step }}" rows="3">{{step.text}}</textarea>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>&nbsp;</th>
-                    <td valign="top">
-                            <button type="submit" class="btn btn-primary" >Zapisz</button>
-                            <a href="/admin/site/all" class="btn btn-danger">Wróć</a>
-                    </td>
-                    <td></td>
-                </tr>
-	</table>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th valign="top">Pozostały element strony:</th>
+                <td>
+                    <div class="control-group">
+                            <div class="controls">
+                                <textarea class="cleditor" id="textarea2" name="content" rows="3">{{site.text}}</textarea>
+                            </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td valign="top">
+                        <button type="submit" class="btn btn-primary" >Zapisz</button>
+                        <a href="/admin/site/all" class="btn btn-danger">Wróć</a>
+                </td>
+                <td></td>
+            </tr>
+        </table>
 	<!-- end id-form  -->
 
     </form>

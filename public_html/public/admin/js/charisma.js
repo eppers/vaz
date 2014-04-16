@@ -108,13 +108,15 @@ function docReady(){
 	
 	//rich text editor
 	$('.cleditor').cleditor({
-   width:        500, // width not including margins, borders or padding
+          width:        500, // width not including margins, borders or padding
           height:       250, // height not including margins, borders or padding
           controls:     // controls to add to the toolbar
                         "bold italic underline strikethrough subscript superscript | font size " +
                         "style | color highlight removeformat | bullets numbering | outdent " +
                         "indent | alignleft center alignright justify | undo redo | " +
-                        "rule image link unlink | cut copy paste pastetext | print source"
+                        "rule image link unlink | cut copy paste pastetext | print source",
+          useCSS:       true,
+          docCSSFile:   "http://vaz.petre.pl/public/css/foundation.css",
         });
 	
 	

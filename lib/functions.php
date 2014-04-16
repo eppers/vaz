@@ -40,4 +40,20 @@ function clearName($name) {
     return $name;
 }
 
+function prepareHtmlToDb($string) {
+
+        $search = array("\\",  "\x00", "\n",  "\r",  "'",  '"', "\x1a");
+        $replace = array("\\\\","\\0","\\n", "\\r", "\'", '\"', "\\Z");
+
+    return htmlspecialchars(str_replace($search, $replace, $string));
+}
+
+function prepareDbToHtml($string) {
+    $search = array("\\\\","\\0","\\n", "\\r", "\'", '\"', "\\Z");
+    $replace = array("\\",  "\x00", "\n",  "\r",  "'",  '"', "\x1a");
+
+    return str_replace($search, $replace, htmlspecialchars_decode($string));
+}
+
+
 ?>

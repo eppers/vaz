@@ -16,9 +16,13 @@ class Site extends Model{
         return $this->has_many('Step', 'id_site');
     }
 
-    public static function getName($orm, $lang) {
-        return $orm->left_join('Sites_Langs', array('Site.id_site', '=', 'Sites_Langs.id_site'))->where('Sites_Langs.lang',$lang);
+    function getOneSiteName() {
+        return $this->has_many('SiteLang', 'id_site');
     }
-    
+
+    public static function getManySitesNames($orm, $lang) {
+        return $orm->join('Sites_Langs', array('Sites.id_site', '=', 'Sites_Langs.id_site'))->where('Sites_Langs.lang',$lang);
+    }
+
 }
 ?>

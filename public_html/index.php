@@ -18,12 +18,9 @@ require '../lib/autoloader.php';
 
 require '../conf.php';
 
-//Models
-
-
-
 
 use Slim\Extras\Views\Twig as Twig;
+use Slim\Http\Util as Util;
  
 $app = new Slim(array(
     'debug' => true,
