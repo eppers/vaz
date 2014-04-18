@@ -1,3 +1,7 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_title %}Kontakt{% endblock %}
+{% block content %}
 <section>
     <div class="row places">
         <div class="topline"></div>
@@ -5,17 +9,14 @@
             <h2>Nasze placówki</h2>
             <div id="map">
                 <ul class="cities">
-                    <li class="city warszawa" style="left:10px; top:20px;"></li>
-                    <li class="city warszawa" style="left:20px; top:70px;"></li>
-                    <li class="city warszawa" style="left:90px; top:42px;"></li>
-                    <li class="city warszawa" style="left:48px; top:82px;"></li>
-                    <li class="city warszawa active" style="left:50px; top:123px;"></li>
-                    <li class="city warszawa" style="left:62px; top:164px;"></li>
-                    <li class="city warszawa" style="left:53px; top:34px;"></li>
-                    <li class="city warszawa" style="left:132px; top:71px;"></li>
-                    <li class="city warszawa" style="left:182px; top:12px;"></li>
-                    <li class="city warszawa" style="left:144px; top:94px;"></li>
-                    <li class="city warszawa" style="left:100px; top:7px;"></li>
+                    {% for city_list in cities %}
+                        {% if city_list.id_city == city.id_city  %}
+                            {% set x_pos, y_pos = city_list.x_pos-3, city_list.y_pos-3 %}
+                        {% else %}
+                            {%set x_pos, y_pos = city_list.x_pos, city_list.y_pos %}
+                        {% endif %}
+                        <li class="city {% if city_list.id_city == city.id_city  %}active{% endif %}" style="left:{{ x_pos }}px; top:{{ y_pos }}px;" data-x_pos="{{ city_list.x_pos }}" data-y_pos="{{ city_list.y_pos }}" rel="{{ city_list.name }}"><a class="city-name" style="cursor:pointer; width:11px; height: 11px; display:inline-block; vertical-align: top;" rel="{{ city_list.id_city }}" title="{{ city_list.name }}"></a></li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="selectplace2">
@@ -24,7 +25,7 @@
             <div class="topline"></div>
         </div>
         <div class="columns small-12 medium-6 graybox  place-details">
-            <h3>Warszawa</h3>
+            <h3 id="city-name-title">{{ city.name }}</h3>
             <div class="actionbox">
                 <div class="textlabel">Wybierz dogodny dla Ciebie termin zabiegu:</div>
                 <a href="#" class="button">Wolne terminy</a>
@@ -111,3 +112,4 @@
         </div>
     </div>
 </section>
+{% endblock %}

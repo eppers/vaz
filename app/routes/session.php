@@ -24,7 +24,7 @@ $app->hook('slim.before.dispatch', function() use ($app) {
 $app->get('/', function () use ($app) {
 
     $site = Model::factory('Site')->find_one(1);
-    $steps = Model::factory('Step')->where(id_site,$site->id_site)->find_many();
+    $steps = Model::factory('Step')->where('id_site',$site->id_site)->find_many();
 
     $app->render('vazectomia.html.twig', array('menuid'=>1, 'steps'=>$steps));
 });
@@ -39,10 +39,19 @@ $app->get('/:id,:slug', function ($id) use ($app) {
     foreach($steps as &$step) {
         $step->text = prepareDbToHtml($step->text);
     }
-    $app->render($site->template.'.html.twig', array('menuid'=>1, 'steps'=>$steps));
+    if($site->mapa == 1) {
+        $cities = Model::factory('City')->filter('getManyCitiesNames','pl')->find_many(); //TODO jezyk w zaleznosci od wersji jezykowej
+    } else $cities = array();
+    $app->render($site->template.'.html.twig', array('menuid'=>1, 'steps'=>$steps, 'cities'=>$cities));
 });
 
+$app->get('/miasto/:id', function ($id) use ($app) {
 
+    $city = Model::factory('CityName')->where('id_city',intval($id))->where('lang','pl')->find_one();//TODO jezyk w zaleznosci od wersji jezykowej
+    $cities = Model::factory('City')->filter('getManyCitiesNames','pl')->find_many(); //TODO jezyk w zaleznosci od wersji jezykowej
+
+    $app->render('placowki.html.twig', array('menuid'=>1, 'city'=>$city, 'cities'=>$cities));
+});
 
 /**
  * Uprawnienia
@@ -60,7 +69,7 @@ $app->get('/uprawnienia', function () use ($app) {
 $app->get('/kontakt', function () use ($app) {
 
    // $fotos = Model::factory('Foto')->order_by_asc('pos')->find_many();
-    $app->render('contact.html.twig', array('menuid'=>'5'));
+    $app->render('kontakt.html.twig', array('menuid'=>'5'));
 });
 
 
@@ -115,10 +124,10 @@ $app->post('/kontakt', function () use ($app) {
      if(!$mail->Send()) {
           //echo 'Wiadomość nie została wysłana.';
           //echo 'Mailer Error: ' . $mail->ErrorInfo;
-          $app->render('contact.html.twig', array('menuid'=>'4','error'=>'Wiadomość nie została wysłana.'));
+          $app->render('kontakt.html.twig', array('menuid'=>'4','error'=>'Wiadomość nie została wysłana.'));
           exit;
     } else {
-        $app->render('contact.html.twig', array('menuid'=>'4','error'=>'Wiadomość została wysłana.'));
+        $app->render('kontakt.html.twig', array('menuid'=>'4','error'=>'Wiadomość została wysłana.'));
     }
   }
 

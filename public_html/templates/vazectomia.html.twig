@@ -122,17 +122,9 @@
                 <h2>Nasze placówki</h2>
                 <div id="map">
                     <ul class="cities">
-                        <li class="city warszawa" style="left:10px; top:20px;"></li>
-                        <li class="city warszawa" style="left:20px; top:70px;"></li>
-                        <li class="city warszawa" style="left:90px; top:42px;"></li>
-                        <li class="city warszawa" style="left:48px; top:82px;"></li>
-                        <li class="city warszawa active" style="left:50px; top:123px;"></li>
-                        <li class="city warszawa" style="left:62px; top:164px;"></li>
-                        <li class="city warszawa" style="left:53px; top:34px;"></li>
-                        <li class="city warszawa" style="left:132px; top:71px;"></li>
-                        <li class="city warszawa" style="left:182px; top:12px;"></li>
-                        <li class="city warszawa" style="left:144px; top:94px;"></li>
-                        <li class="city warszawa" style="left:100px; top:7px;"></li>
+                        {% for city in cities %}
+                            <li class="city" style="left:{{ city.x_pos }}px; top:{{ city.y_pos }}px;" rel="{{ city.name }}"><a class="city-name" style="cursor:pointer; width:11px; height: 11px; display:inline-block; vertical-align: top;" rel="{{ city.id_city }}" title="{{ city.name }}"></a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="topline"></div>
@@ -146,14 +138,14 @@
                 </div>
             </div>
             <div class="columns small-6 graybox hide2 place-details">
-                <h3>Warszawa</h3>
+                <h3 id="city-name-title">Warszawa</h3>
                 <div class="actionbox">
                     <div class="textlabel">Wybierz dogodny dla Ciebie termin zabiegu:</div>
-                    <a href="#" class="button">Wolne terminy</a>
+                    <a href="/miasto/1" id="city-free" class="button">Wolne terminy</a>
                 </div>
                 <div class="actionbox">
                     <div class="textlabel">Zadzwoń i zarejestruj się telefonicznie:</div>
-                    <a href="#" class="button">Rejestracja</a>
+                    <a href="/kontakt" class="button">Rejestracja</a>
                 </div>
 
             </div>
