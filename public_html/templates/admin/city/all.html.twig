@@ -42,13 +42,13 @@
                            {% for city in cities %}
 				<tr class="category-row{% if loop.index is divisibleby(2) %} alternate-row{% endif %}" >
 					<td><input  type="checkbox"/></td>
-					<td class="title">{{ city.name }}</td>
+					<td class="name">{{ city.name }}</td>
 					<td class="options-width">
 					<a href="" rel="{{ city.id_city }}" type="edit" title="Edytuj city" class="icon-1 info-tooltip btn-setting"></a>
                                         <a href="" rel="{{ city.id_city }}" type="active" title="Aktywuj/deaktywuj city" class="icon-3 info-tooltip "></a>
                                         <a href="/admin/city/delete/{{ city.id_city }}" title="Usuń city" class="icon-2 info-tooltip"></a>
-                                        <input type="hidden" value="{{ city.link }}" class="city-link">
-                                        <input type="hidden" value="{{ city.text }}" class="city-text">
+                                        <input type="hidden" value="{{ city.x_pos }}" class="city-posx">
+                                        <input type="hidden" value="{{ city.y_pos }}" class="city-posy">
 					</td>
 				</tr>
                                 

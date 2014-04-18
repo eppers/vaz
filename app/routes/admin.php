@@ -40,26 +40,25 @@ $app->post('/admin/city/edit', $auth, function () use ($app) {
     $city = Model::factory('City')->find_one($app->request()->post('id'));
     
     if($city instanceof City) {
+
         try {
-            $title = $app->request()->post('title');
-            $content = $app->request()->post('content');
-            $link = $app->request()->post('link');
-            $url = $app->request()->post('url');
-            
-            $city->title = $title;
-            $city->text = $content;
-            $city->link = $link;
-            $city->url = $url;
-            
+
+            $city->x_pos = intval($app->request()->post('x'));
+            $city->y_pos = intval($app->request()->post('y'));
             if(!$city->save())   throw new Exception('Któraś z danych jest niepoprawna');
+
+            $cityName = $city->getOneCityName()->where('lang','pl')->find_one(); //TODO wstawić język w zależności od wersji językowej w adminie
+            $cityName->name = clearName($app->request()->post('city'));
+            if(!$cityName->save())   throw new Exception('Błąd z nazwą miasta');
+
         } catch (Exception $e) {
             print json_encode(array('error'=>1, 'msg'=>'Błąd! '.$e->getMessage()));
             exit();
         }
         
-        print json_encode(array('error'=>0, 'msg'=>'Box został wyedytowany'));
+        print json_encode(array('error'=>0, 'msg'=>'Miasto zostało wyedytowane'));
     } else {
-        print json_encode(array('error'=>1, 'msg'=>'Błąd! Problem z ID boxa.'));
+        print json_encode(array('error'=>1, 'msg'=>'Błąd! Problem z ID Miasta.'));
     }
  });
 
@@ -80,7 +79,7 @@ $app->post('/admin/city/add', $auth, function () use ($app) {
     $cityName->name = clearName($app->request()->post('city'));
     $cityName->save();
 
-    print json_encode(array('status'=>true));
+    print json_encode(array('error'=>0, 'msg'=>'Miasto zostało dodane', 'id'=>$cityName->id_city));
   });
  
  
@@ -88,10 +87,16 @@ $app->post('/admin/city/add', $auth, function () use ($app) {
  * City delete
  */
 $app->get('/admin/city/delete/:id', $auth, function ($id) use ($admin) {
-    $box = Model::factory('Box')->find_one($id);
+    $city = Model::factory('City')->find_one($id);
     
-    if($box instanceof Box) {
-        $box->delete();
+    if($city instanceof City) {
+        $cityNames = $city->getOneCityName()->find_many();
+
+            foreach($cityNames as $name) {
+                if($name instanceof CityName)
+                    $name->delete();
+            }
+        $city->delete();
         $_SESSION['status']='0';
         $_SESSION['msg']='Pozycja zostało usunięta';
     } else {
@@ -99,7 +104,7 @@ $app->get('/admin/city/delete/:id', $auth, function ($id) use ($admin) {
         $_SESSION['msg']='Błąd! Spróbuj później.';
     }
 
-    $admin->app->redirect('/admin/city/all');
+    $admin->app->redirect('/admin/city');
 });
 
 

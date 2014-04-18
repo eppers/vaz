@@ -116,7 +116,7 @@ function docReady(){
                         "indent | alignleft center alignright justify | undo redo | " +
                         "rule image link unlink | cut copy paste pastetext | print source",
           useCSS:       true,
-          docCSSFile:   "http://vaz.petre.pl/public/css/foundation.css",
+          docCSSFile:   "http://vaz.petre.pl/public/css/foundation.css"
         });
 	
 	
@@ -292,32 +292,32 @@ function docReady(){
 		else 					   $('i',$(this)).removeClass('icon-chevron-down').addClass('icon-chevron-up');
 		$target.slideToggle();
 	});
-	$('.btn-setting').on("click",function(e){
+	$('#mainform').on("click",'.btn-setting',function(e){
 		e.preventDefault();
-                var id = $(this).attr('rel'),
-                    type = $(this).attr('type'),
-                    title = $(this).parents('tr.category-row').children('td.title').html(),
-                    content = $(this).parents('tr.category-row').find('input.box-text').val(),
-                    link = $(this).parents('tr.category-row').find('input.box-link').val(),
-                    url = $(this).parents('tr.category-row').children('td.url').html();
+        var id = $(this).attr('rel'),
+            type = $(this).attr('type'),
+            city = $(this).parents('tr.category-row').find('td.name').html(),
+            posx = $(this).parents('tr.category-row').find('.city-posx').val(),
+            posy = $(this).parents('tr.category-row').find('.city-posy').val();
 
-                if(type=='edit') $('#myModal').find('h3').html('Zmiana nazwy');
-                else $('#myModal').find('h3').html('Hmm..coś jest nie tak');
-                
-                $('#myModal').find('.alert').remove();
-                $('#focusedInput').val(title);
-                $("input#url").val(url);
-                $('#textarea2').val(content);
-		$('#myModal').modal('show');
-                $('#myModal').on('shown', function() {
-                    $("input#id").val(id);
-                    $("input#action").val(type);
-                    $("#link").val(link);
-                    if (link == 1) {
-                        $("#link-holder").parent('span').addClass( "checked" ); }
-                    else
-                       $("#link-holder").parent('span').removeClass( "checked" ); 
-                })
+        if(type=='edit') $('#myModal').find('h3').html('Zmiana nazwy');
+        else $('#myModal').find('h3').html('Hmm..coś jest nie tak');
+
+        $('#myModal').find('.alert').remove();
+        $('input#city').val(city);
+        $("label[for='city']").html('Zmiana nazwy miasta');
+        $('#dragThis').css({ top: posy+'px', left: posx+'px' });
+
+        $('#myModal').modal('show');
+        $('#myModal').on('shown', function() {
+
+            $('#myModal input#posx').val(posx);
+            $("#myModal input#posy").val(posy);
+            $("#myModal input#id").val(id);
+            $("#myModal input#action").val(type);
+
+
+        })
 	});
 
         $('#add-box').on("click",function(e){
@@ -327,11 +327,13 @@ function docReady(){
                 $('#myModal').find('h3').html('Dodaj nową pozycję');
                 
                 $('#myModal').find('.alert').remove();
-                $('#focusedInput').val('');
-                $("input#url").val();
-                $('#textarea2').val();
-                $("#link").val(0);
-                
+                $('input#city').val('');
+                $('#myModal input#posx').val('');
+                $("#myModal input#posy").val('');
+                $("#myModal input#id").val('');
+                $("#myModal input#action").val(type);
+                $('#dragThis').css({ top: '', left: '' });
+
 		$('#myModal').modal('show');
                 $('#myModal').on('shown', function() {
                     $("input#action").val(type);
