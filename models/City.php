@@ -19,5 +19,10 @@ class City extends Model{
     public static function getManyCitiesNames($orm, $lang) {
         return $orm->join('Cities_Names', array('Cities.id_city', '=', 'Cities_Names.id_city'))->where('Cities_Names.lang',$lang);
     }
+
+    function getCalendar() {
+        return $this->has_many('Calendar', 'id_city');
+    }
+
 }
 ?>

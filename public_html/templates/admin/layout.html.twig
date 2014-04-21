@@ -6,7 +6,7 @@
 
         <link rel="stylesheet" href="/public/admin/css/screen.css" type="text/css" media="screen" title="default" />
 
-        <link href="/public/admin/css/charisma-app.css" rel="stylesheet" />
+    <link href="/public/admin/css/charisma-app.css" rel="stylesheet" />
 	<link href="/public/admin/css/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
 	<link href='/public/admin/css/fullcalendar.css' rel='stylesheet' />
 	<link href='/public/admin/css/fullcalendar.print.css' rel='stylesheet'  media='print' />
@@ -21,7 +21,8 @@
 	<link href='/public/admin/css/jquery.iphone.toggle.css' rel='stylesheet' />
 	<link href='/public/admin/css/opa-icons.css' rel='stylesheet' />
 	<link href='/public/admin/css/uploadify.css' rel='stylesheet' />
-        <link href="/public/admin/css/bootstrap-classic.css" rel="stylesheet" />
+    <link href="/public/admin/css/bootstrap-classic.css" rel="stylesheet" />
+    <link href="/public/admin/css/style_custom.css" rel="stylesheet" />
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -113,8 +114,7 @@ $(function() {
 		left: 5
 	});
 });
-</script> 
-
+</script>
 
 
 
@@ -176,16 +176,18 @@ $(document).pngFix( );
 		<div class="table">
 		
 		<ul class="select">
-                    <li>
-                        <a href="/admin/city"><b>Miasta</b><!--[if IE 7]><!--></a><!--<![endif]-->
-                    </li>
+            <li>
+                <a href="/admin/city"><b>Miasta</b><!--[if IE 7]><!--></a><!--<![endif]-->
+            </li>
 		</ul>
-		
 		<div class="nav-divider">&nbsp;</div>
-                
-                <ul class="select"><li><a href="/admin/site/all"><b>Strony</b><!--[if IE 7]><!--></a><!--<![endif]-->
-		</li>
-		</ul>
+        <ul class="select">
+            <li><a href="/admin/site/all"><b>Strony</b><!--[if IE 7]><!--></a><!--<![endif]--></li>
+        </ul>
+        <div class="nav-divider">&nbsp;</div>
+        <ul class="select">
+            <li><a href="/admin/calendar"><b>Kalendarz</b><!--[if IE 7]><!--></a><!--<![endif]--></li>
+        </ul>
 
 		<div class="clear"></div>
 		</div>
@@ -288,6 +290,10 @@ $(document).pngFix( );
 	<script src="/public/admin/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="/public/admin/js/charisma.js"></script>
-    <script src="/public/admin/js/jquery-ui-1.10.4.custom.min"></script>
+    <script src="/public/admin/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript">
+
+</script>
+
 </body>
 </html>

@@ -1,0 +1,5 @@
+<ul class="calendar">
+    {% for day in available %}
+        <li {% if day is not empty %}class="active static" rel="9:00-18:00"{% endif %}>{{ loop.index }}</li>
+    {% endfor %}
+</ul>

@@ -5,11 +5,8 @@
  * and open the template in the editor.
  */
 
-/**
- * Description of Admin
- *
- * @author piotrm
- */
+namespace Acme;
+
 class Admin {
      /* var $app Slim */
     public $app;

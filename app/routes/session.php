@@ -1,6 +1,6 @@
 <?php
 
-//TODO miasta zapis do bazy i generowanie na stronie
+//TODO formualrz kontaktowy
 
 /*
  * Stosowne menu dla danego języka

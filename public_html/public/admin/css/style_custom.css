@@ -1,0 +1,70 @@
+/* Label Styles */
+label {
+    font-size: 0.875rem;
+    color: #4d4d4d;
+    cursor: pointer;
+    display: block;
+    font-weight: normal;
+    line-height: 1.5;
+    margin-bottom: 0;
+    /* Styles for required inputs */ }
+label.right {
+    float: none;
+    text-align: right; }
+label.inline {
+    margin: 0 0 1rem 0;
+    padding: 0.625rem 0; }
+label small {
+    text-transform: capitalize;
+    color: #676767; }
+
+select {
+    -webkit-appearance: none !important;
+    background-color: #fafafa;
+    background-image: url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iM3B4IiB2aWV3Qm94PSIwIDAgNiAzIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA2IDMiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIHBvaW50cz0iNS45OTIsMCAyLjk5MiwzIC0wLjAwOCwwICIvPjwvc3ZnPg==");
+    background-repeat: no-repeat;
+    background-position: center right 3%;
+    border: 1px solid #cccccc;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    -webkit-border-radius: 0;
+    border-radius: 0; }
+select.radius {
+    -webkit-border-radius: 3px;
+    border-radius: 3px; }
+select:hover {
+    background-color: #f3f3f3;
+    border-color: #999999; }
+
+select::-ms-expand {
+    display: none; }
+
+@-moz-document url-prefix() {
+    select {
+        background: #fafafa; }
+
+    select:hover {
+        background: #f3f3f3; } }
+
+.calendar {
+    width: 600px;
+}
+.calendar{list-style-type:none}.calendar li{width:60px;height:60px;line-height:60px;background:#bababa;color:#fff;font-size:24px;text-align:center;float:left;font-family:'museo_slab500';margin:0 20px 20px 0;padding:0!important}.calendar li.active{background:#1f97a1}select{ height: 2.3125rem; line-height: normal; background:#fff url(../../images/select_toggle.png) right top no-repeat;border:1px solid #1f97a1;outline:0;font-size:17px;font-family:Arial, Tahoma, sans-serif;color:#1f97a1}.calendar_buttons{text-align:center}.calendar_buttons .select label{color:#1f97a1;font-family:Arial, Tahoma, sans-serif;margin-bottom:13px}
+.cal .medium-uncentered.columns{float:left!important}
+.large-4 { width: 33%; } .large-8 { width: 66%;}
+.column, .columns { float: left; }
+.calendar_buttons { text-align: center; }
+.columns.large-centered {
+    margin-left: auto;
+    margin-right: auto;
+    float: none !important; }
+
+#amount-time {
+    text-align: center;
+}
+
+#slider-time {
+    width: 250px;
+    text-align: center;
+    margin: 0 auto;
+}

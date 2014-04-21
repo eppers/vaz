@@ -108,9 +108,8 @@ $app->get('/admin/city/delete/:id', $auth, function ($id) use ($admin) {
 });
 
 
-/*
- * Sites ......................................................................
- */
+/****SITES*********************************************************************/
+
 $app->get('/admin/site/all', $auth, function () use ($admin) {
     $sites=Model::factory('Site')->filter('getManySitesNames','pl')->find_many();
     $admin->render('/site/list.html.twig',array('sites'=>$sites));
@@ -167,6 +166,77 @@ $app->post('/admin/site/edit/:id', $auth, function ($id) use ($admin) {
     $admin->app->redirect('/admin/site/all');
 });
 
+/****CALENDAR*********************************************************************/
+
+$app->get('/admin/calendar', $auth, function () use ($admin) {
+    $cities = Model::factory('CityName')->where('lang','pl')->find_many();
+    $date = date('Y-m-j');
+    $currentMonth = date('n');
+    $calendar = new Acme\Calendar($cities[0]->id_city);
+    $calendarCurrentMonth = $calendar->getFreeDaysForCityInMonth($date);
+    $listOfMonths = Acme\Calendar::getListOfMonths('pl');
+
+    $admin->render('/calendar/calendar.html.twig',array('cities'=>$cities, 'available'=>$calendarCurrentMonth, 'month'=>$currentMonth, 'listOfMonths'=>$listOfMonths));
+
+});
+
+$app->post('/admin/calendar', $auth, function () use ($admin) {
+
+    $year = date('Y'); //TODO w razie chęci dodawania terminów na rok następny wysyłąć dodatkowe pole
+    $month = intval($admin->app->request()->post('month'));
+    $cityId = intval($admin->app->request()->post('city'));
+
+    $city = Model::factory('City')->find_one($cityId);
+    if($city instanceof City) {
+        $date = $year.'-'.$month.'-'.'01';
+        $calendar = new Acme\Calendar($cityId);
+        $calendarCurrentMonth = $calendar->getFreeDaysForCityInMonth($date);
+    } else {
+        $calendarCurrentMonth = array();
+    }
+    $admin->render('/calendar/calendar_edit.html.twig',array('available'=>$calendarCurrentMonth));
+});
+
+$app->post('/admin/calendar/add', $auth, function () use ($app) {
+
+    $post = array();
+    parse_str($app->request()->post('form'),$post);
+
+    $year = date('Y'); //TODO w razie chęci dodawania terminów na rok następny wysyłąć dodatkowe pole
+    $month = intval($post['month']);
+    $day = intval($post['day-id']);
+    $cityId = intval($post['city']);
+    $time = explode('-',$post['amount-time']);
+
+
+    $city = Model::factory('City')->find_one($cityId);
+    if($city instanceof City) {
+        $date = $year.'-'.$month.'-'.$day;
+        $hourFrom = date('G:i:s',strtotime($time[0]));
+        $hourTo = date('G:i:s',strtotime($time[1]));
+        $calendar = Model::factory('Calendar')->create();
+        $calendar->id_city = $cityId;
+        $calendar->date = $date;
+        $calendar->hour_from = $hourFrom;
+        $calendar->hour_to = $hourTo;
+        $calendar->save();
+
+        print json_encode('1');
+    } else print json_encode('0');
+
+});
+
+$app->post('/admin/calendar/edit', $auth, function () use ($app) {
+
+//TODO edycja kalendarza
+
+});
+
+$app->post('/admin/calendar/delete', $auth, function () use ($app) {
+
+//TODO usuwanie kalendarza
+
+});
 
 /****USER*********************************************************************/
 /*

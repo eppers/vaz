@@ -1,0 +1,103 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_title %}Internet przewody{% endblock %}
+{% block content %} 
+<!-- start content-outer ........................................................................................................................START -->
+<div id="content-outer">
+<!-- start content -->
+<div id="content">
+
+	<!--  start page-heading -->
+	<div id="page-heading">
+		<h1>Lista miast</h1>
+	</div>
+	<!-- end page-heading -->
+        <a href="" id="add-box" class="btn btn-large btn-primary">Dodaj miasto</a>
+        <div class="row top-offset cal">
+            <div class="columns large-4 medium-4">
+                <div class="calendar_buttons">
+                    <form>
+                        <div class="select small-10 columns large-centered">
+                            <label>Wybierz miasto</label>
+                            <select id="city" name="city">
+                                {% for city in cities %}
+                                <option value="{{ city.id_city }}">{{ city.name }}</option>
+                                {% else %}
+                                <option value="0">Brak miast</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="select small-10 columns large-centered">
+                            <label>Wybierz miesiąc</label>
+                            <select id="month" name="month">
+                                {% for listMonth in listOfMonths %}
+                                    <option value="{{ loop.index }}" {% if loop.index==month %}selected{% endif %}>{{ listMonth }}</option>
+                                {% else %}
+                                    <option value="0">Brak miesięcy</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div  class="select small-10 columns large-centered">
+                            <label for="amount-time">Godziny</label>
+                            <input type="text" name="amount-time" id="amount-time" style="border: 0; color: #666666; font-weight: bold;" value="10:00-20:00"/>
+                            <div id="slider-time"></div><br>
+                        </div>
+                        <div  class="select small-10 columns large-centered">
+                            <input type="hidden" name="day-id" id="day-id">
+                            <a href="" id="add-hour" class="btn btn-large btn-primary">Zapisz</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="month-container" class="columns large-8 small-12 medium-8 small-centered medium-uncentered">
+                <ul class="calendar">
+                    {% for day in available %}
+                        <li {% if day is not empty %}class="active static" rel="{{ day.hour_from|date("G:i") }}-{{ day.hour_to|date("G:i") }}"{% endif %} data-day-id="{{ loop.index }}">{{ loop.index }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+	<div class="clear">&nbsp;</div>
+
+</div>
+<!--  end content -->
+<div class="clear">&nbsp;</div>
+</div>
+<!--  end content-outer........................................................END -->
+
+		<div class="modal hide fade" id="myModal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="control-group">
+                    <div id="left">
+                        <h3>Ustawienia</h3>
+                        <div id="dragStart"></div>
+                        <div id="dropHere">
+                            <div id="dragThis">
+                            </div>
+                        </div>
+                        <p>Zaznacz za pomocą znacznika miasto na mapie</p>
+                    </div>
+                    <div id="right">
+                        <label for="city">Wpisz nazwę miasta, które chcesz dodać</label>
+                        <input type="text" id="city" name="city" placeholder="Miasto" value="">
+                    </div>
+                    <input type="hidden" id="posx" name="posx" value="">
+                    <input type="hidden" id="posy" name="posy" value="">
+                    <input type="hidden" id="id" name="id" value="">
+                    <input type="hidden" id="action" name="action" value="add">
+                </div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Zamknij</a>
+        <a id="savename" class="btn btn-primary">Zapisz zmiany</a>
+        <div id="ajax-loader-container" style="width:16px; display:inline-block; height: 18px; vertical-align:middle;">
+          <div id="ajax-loader-small" style="display:none;"><img src="/public/admin/img/ajax-loaders/ajax-loader-1.gif"></div>
+        </div>
+                               
+			</div>
+		</div>
+{% endblock %}

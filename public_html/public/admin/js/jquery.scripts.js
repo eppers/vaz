@@ -67,6 +67,73 @@ $(document).ready(function(){
        return false;
     });
 
+    $('#month').change(function() {
+        var cityId = $('#city').val(),
+            monthId = $('#month').val();
+        viewCalendar(monthId, cityId);
+    })
+
+    $('#month-container').on('click','li.active',function() {
+        var data = $(this).attr('rel');
+        var arr = data.split('-');
+
+        var time1 = arr[0].split(':');
+        var hours1 = parseInt(time1[0]);
+        var minutes1 = parseInt(time1[1]);
+        var scroll1 = hours1*60+minutes1;
+
+        var time2 = arr[1].split(':');
+        var hours2 = parseInt(time2[0]);
+        var minutes2 = parseInt(time2[1]);
+        var scroll2 = hours2*60+minutes2;
+
+        $('#amount-time').val(data);
+        $('#slider-time').slider("option", "values", [scroll1, scroll2]);
+
+    })
+
+    $('#slider-time').slider({
+        range: true,
+        min: 0,
+        max: 1440,
+        step: 15,
+        values: [ 600, 1200 ],
+        slide: function( event, ui ) {
+            var hours1 = Math.floor(ui.values[0] / 60);
+            var minutes1 = ui.values[0] - (hours1 * 60);
+
+            if(hours1.length < 10) hours1= '0' + hours;
+            if(minutes1.length < 10) minutes1 = '0' + minutes;
+
+            if(minutes1 == 0) minutes1 = '00';
+
+            var hours2 = Math.floor(ui.values[1] / 60);
+            var minutes2 = ui.values[1] - (hours2 * 60);
+
+            if(hours2.length < 10) hours2= '0' + hours;
+            if(minutes2.length < 10) minutes2 = '0' + minutes;
+
+            if(minutes2 == 0) minutes2 = '00';
+
+            $('#amount-time').val(hours1+':'+minutes1+'-'+hours2+':'+minutes2 );
+        }
+    });
+
+    $('#month-container').on('click','li', function(){
+        if($(this).not('active')) {
+            $('ul.calendar').find('li.active').not('.static').removeClass('active');
+            var dayId = $(this).html();
+            $('#day-id').val(dayId);
+            $(this).addClass('active');
+        }
+    });
+
+    $('.calendar_buttons').on('click','#add-hour', function(e) {
+        e.preventDefault();
+        var form = $('form').serialize();
+        addFreeHour(form);
+    })
+
 });  //END OF DOCUMENT READY
 
 function deleteItem() {
@@ -128,7 +195,63 @@ function addedit(action, id, x, y, city) {
                 }
         });
     };
-    
+
+
+function viewCalendar(monthId, cityId) {
+    var url = '/admin/calendar';
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {month: monthId, city: cityId},
+        dataType: 'html',
+        beforeSend: function(){
+            $('#ajax-loader-small').show();
+        },
+        success: function(data) {
+            $('#ajax-loader-small').hide();
+            console.log(data);
+            $('#month-container').html(data);
+
+        },
+        error: function(xhr,textStatus,err)
+        {
+            console.log("readyState: " + xhr.readyState);
+            console.log("responseText: "+ xhr.responseText);
+            console.log("status: " + xhr.status);
+        }
+    });
+}
+
+function addFreeHour(form) {
+    var url = '/admin/calendar/add';
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {form : form},
+        dataType: 'json',
+        beforeSend: function(){
+            $('#ajax-loader-small').show();
+        },
+        success: function(data) {
+            $('#ajax-loader-small').hide();
+            console.log(data);
+            if(data == 1) {
+                var dayId = $('#day-id').val();
+                var li = $("li[data-day-id='" + dayId +"']");
+                if (li.hasClass('active'))
+                    li.addClass('static')
+                else alert('Odśwież stronę');
+            } else alert('Wystąpił problem z dodaniem danego dnia dla tego miasta. Spróbuj ponownie.');
+        },
+        error: function(xhr,textStatus,err)
+        {
+            console.log("readyState: " + xhr.readyState);
+            console.log("responseText: "+ xhr.responseText);
+            console.log("status: " + xhr.status);
+        }
+    });
+}
+
 function activ(id) {
         $.ajax({
             type: "POST",
