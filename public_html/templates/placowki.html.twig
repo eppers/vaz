@@ -8,14 +8,14 @@
         <div class="columns small-12 medium-5 large-6 greenbox">
             <h2>Nasze placówki</h2>
             <div id="map">
-                <ul class="cities">
+                <ul class="cities" id="placowki-cities">
                     {% for city_list in cities %}
                         {% if city_list.id_city == city.id_city  %}
                             {% set x_pos, y_pos = city_list.x_pos-3, city_list.y_pos-3 %}
                         {% else %}
                             {%set x_pos, y_pos = city_list.x_pos, city_list.y_pos %}
                         {% endif %}
-                        <li class="city {% if city_list.id_city == city.id_city  %}active{% endif %}" style="left:{{ x_pos }}px; top:{{ y_pos }}px;" data-x_pos="{{ city_list.x_pos }}" data-y_pos="{{ city_list.y_pos }}" rel="{{ city_list.name }}"><a class="city-name" style="cursor:pointer; width:11px; height: 11px; display:inline-block; vertical-align: top;" rel="{{ city_list.id_city }}" title="{{ city_list.name }}"></a></li>
+                        <li class="city {% if city_list.id_city == city.id_city  %}active{% elseif loop.index==1%}active{% endif %}" style="left:{{ x_pos }}px; top:{{ y_pos }}px;" data-x_pos="{{ city_list.x_pos }}" data-y_pos="{{ city_list.y_pos }}" rel="{{ city_list.name }}"><a class="city-name" style="cursor:pointer; width:11px; height: 11px; display:inline-block; vertical-align: top;" rel="{{ city_list.id_city }}" title="{{ city_list.name }}"></a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -25,7 +25,7 @@
             <div class="topline"></div>
         </div>
         <div class="columns small-12 medium-6 graybox  place-details">
-            <h3 id="city-name-title">{{ city.name }}</h3>
+            <h3 id="city-name-title">{% if city.name is not null %}{{ city.name }}{% else %}{{ cities[0].name }}{% endif %}</h3>
             <div class="actionbox">
                 <div class="textlabel">Wybierz dogodny dla Ciebie termin zabiegu:</div>
                 <a href="#" class="button">Wolne terminy</a>
@@ -44,50 +44,22 @@
                 <span class="button">Wolne terminy</span>
                 <div class="select small-10 columns large-centered">
                     <label>Wybierz miesiąc</label>
-                    <select>
-                        <option>Styczeń</option>
-                        <option>Luty</option>
-                        <option>Marzec</option>
-                        <option>Kwiecień</option>
-                        <option>Maj</option>
-
-                    </select>
+                      <select id="month" name="month">
+                        {% for listMonth in listOfMonths %}
+                        <option value="{{ loop.index }}" {% if loop.index==month %}selected{% endif %}>{{ listMonth }}</option>
+                        {% else %}
+                        <option value="0">Brak miesięcy</option>
+                        {% endfor %}
+                      </select>
+                      <input name="city" type="hidden" id="city" value="{% if city.id_city is not null %}{{ city.id_city }}{% else %}{{ cities[0].id_city }}{% endif %}">
                 </div>
             </div>
         </div>
-        <div class="columns large-8 small-12 medium-8 small-centered medium-uncentered">
+        <div id="calendar-container" class="columns large-8 small-12 medium-8 small-centered medium-uncentered">
             <ul class="calendar">
-                <li>01</li>
-                <li>02</li>
-                <li>03</li>
-                <li>04</li>
-                <li>05</li>
-                <li>06</li>
-                <li>07</li>
-                <li>08</li>
-                <li>09</li>
-                <li class="active">10</li>
-                <li>11</li>
-                <li>12</li>
-                <li>13</li>
-                <li>14</li>
-                <li>15</li>
-                <li class="active">16</li>
-                <li>17</li>
-                <li>18</li>
-                <li>19</li>
-                <li>20</li>
-                <li>21</li>
-                <li class="active">22</li>
-                <li class="active">23</li>
-                <li>24</li>
-                <li>25</li>
-                <li>26</li>
-                <li>27</li>
-                <li>28</li>
-                <li>29</li>
-                <li>30</li>
-                <li>31</li>
+              {% for day in available %}
+              <li {% if day is not empty %}class="active static" rel="{{ day.hour_from|date("G:i") }}-{{ day.hour_to|date("G:i") }}"{% endif %} data-day-id="{{ loop.index }}">{{ loop.index }}</li>
+              {% endfor %}
             </ul>
         </div>
     </div>
@@ -96,7 +68,7 @@
             <div class="term_info">
                 W wybranym przez Ciebie terminie lekarz przyjmuje w godzinach:
             </div>
-            <span class="button hours-info">09:00-13:00</span>
+            <span class="button hours-info">00:00-00:00</span>
             <div class="term_info">
                 Zadzwnoń i zarestruj się telefonicznie
             </div>

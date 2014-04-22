@@ -42,7 +42,14 @@ $app->get('/:id,:slug', function ($id) use ($app) {
     if($site->mapa == 1) {
         $cities = Model::factory('City')->filter('getManyCitiesNames','pl')->find_many(); //TODO jezyk w zaleznosci od wersji jezykowej
     } else $cities = array();
-    $app->render($site->template.'.html.twig', array('menuid'=>1, 'steps'=>$steps, 'cities'=>$cities));
+    if($site->template == 'placowki') {
+      $date = date('Y-m-j');
+      $currentMonth = date('n');
+      $calendar = new Acme\Calendar($cities[0]->id_city);
+      $calendarCurrentMonth = $calendar->getFreeDaysForCityInMonth($date);
+      $listOfMonths = Acme\Calendar::getListOfMonths('pl');
+    }
+    $app->render($site->template.'.html.twig', array('menuid'=>1, 'steps'=>$steps, 'cities'=>$cities, 'available'=>$calendarCurrentMonth, 'month'=>$currentMonth, 'listOfMonths'=>$listOfMonths));
 });
 
 $app->get('/miasto/:id', function ($id) use ($app) {
@@ -52,6 +59,27 @@ $app->get('/miasto/:id', function ($id) use ($app) {
 
     $app->render('placowki.html.twig', array('menuid'=>1, 'city'=>$city, 'cities'=>$cities));
 });
+
+$app->post('/ajax/calendar', function () use ($app) {
+
+    $year = date('Y'); //TODO w razie chęci dodawania terminów na rok następny wysyłąć dodatkowe pole
+    $month = intval($app->request()->post('month'));
+    $cityId = intval($app->request()->post('city'));
+    $city = Model::factory('City')->find_one($cityId);
+    if($city instanceof City) {
+        $date = $year.'-'.$month.'-'.'01';
+        $calendar = new Acme\Calendar($cityId);
+        $calendarCurrentMonth = $calendar->getFreeDaysForCityInMonth($date);
+    } else {
+        $calendarCurrentMonth = array();
+    }
+    $app->render('/ajax/calendar.html.twig',array('available'=>$calendarCurrentMonth));
+});
+
+
+
+
+
 
 /**
  * Uprawnienia

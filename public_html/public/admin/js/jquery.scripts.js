@@ -67,7 +67,7 @@ $(document).ready(function(){
        return false;
     });
 
-    $('#month').change(function() {
+    $('.calendar_buttons select').change(function() {
         var cityId = $('#city').val(),
             monthId = $('#month').val();
         viewCalendar(monthId, cityId);
@@ -131,8 +131,18 @@ $(document).ready(function(){
     $('.calendar_buttons').on('click','#add-hour', function(e) {
         e.preventDefault();
         var form = $('form').serialize();
-        addFreeHour(form);
-    })
+        updateFreeHour(form);
+    });
+    
+    $('.calendar_buttons').on('click','#delete-hour', function(e) {
+        e.preventDefault();
+        if(deleteItem()) {
+          var form = $('form').serialize();
+          console.log(form);
+          deleteFreeHour(form);
+        }
+        
+    });
 
 });  //END OF DOCUMENT READY
 
@@ -198,7 +208,7 @@ function addedit(action, id, x, y, city) {
 
 
 function viewCalendar(monthId, cityId) {
-    var url = '/admin/calendar';
+    var url = '/ajax/calendar';
     $.ajax({
         type: "POST",
         url: url,
@@ -222,8 +232,8 @@ function viewCalendar(monthId, cityId) {
     });
 }
 
-function addFreeHour(form) {
-    var url = '/admin/calendar/add';
+function updateFreeHour(form) {
+    var url = '/admin/calendar/update';
     $.ajax({
         type: "POST",
         url: url,
@@ -238,10 +248,44 @@ function addFreeHour(form) {
             if(data == 1) {
                 var dayId = $('#day-id').val();
                 var li = $("li[data-day-id='" + dayId +"']");
-                if (li.hasClass('active'))
-                    li.addClass('static')
-                else alert('Odśwież stronę');
+                if (li.hasClass('active')) {
+                    li.not('.static').addClass('static');
+                    var inputTime = $('#amount-time').val();
+                    li.attr('rel',inputTime);
+                    alert('Zmiany zostały zapisane');
+                } else alert('Odśwież stronę');
             } else alert('Wystąpił problem z dodaniem danego dnia dla tego miasta. Spróbuj ponownie.');
+        },
+        error: function(xhr,textStatus,err)
+        {
+            console.log("readyState: " + xhr.readyState);
+            console.log("responseText: "+ xhr.responseText);
+            console.log("status: " + xhr.status);
+        }
+    });
+}
+
+function deleteFreeHour(form) {
+    var url = '/admin/calendar/delete';
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {form : form},
+        dataType: 'json',
+        beforeSend: function(){
+            $('#ajax-loader-small').show();
+        },
+        success: function(data) {
+            $('#ajax-loader-small').hide();
+            console.log(data);
+            if(data == 1) {
+                var dayId = $('#day-id').val();
+                var li = $("li[data-day-id='" + dayId +"']");
+                if (li.hasClass('active')) {
+                    if(li.hasClass('static')) li.removeClass('static');
+                    li.removeClass('active');
+                } else alert('Odśwież stronę');
+            } else alert('Wystąpił problem z usunięciem danego dnia dla tego miasta. Spróbuj ponownie.');
         },
         error: function(xhr,textStatus,err)
         {
