@@ -1,0 +1,5 @@
+<ul class="calendar">
+    {% for day in available %}
+        <li {% if day is not empty %}class="active static" rel="{{ day.hour_from|date("G:i") }}-{{ day.hour_to|date("G:i") }}"{% endif %} data-day-id="{{ loop.index }}">{{ loop.index }}</li>
+    {% endfor %}
+</ul>
