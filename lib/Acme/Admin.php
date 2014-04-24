@@ -13,7 +13,7 @@ class Admin {
 
     
     public function index() {
-        $this->render('vazectomia.html.twig');
+        $this->render('home.html.twig');
     }
 
     public function render($template) {

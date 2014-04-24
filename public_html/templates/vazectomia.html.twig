@@ -2,153 +2,117 @@
 
 {% block page_title %}Wazektomia{% endblock %}
 {% block content %}
-    <div class="row top-offset info-boxes">
-        <div class="columns medium-5 medium-offset-1 large-4 large-offset-0">
-            <div class="row">
-                <div class="columns small-3 circle-parent">
-                    <div class="circle phone_register"></div>
-                </div>
-                <div class="columns small-9">
-                    <h4>Rejestracja telefoniczna</h4>
-                    <p>Zadzwoń i umów się na wizytę.<br><strong class="phone">+48 690 140 840</strong></p>
-                    <div class="text-right"><a href="#" class="button">więcej</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="columns medium-5 large-4">
-            <div class="row">
-                <div class="columns small-3 circle-parent">
-                    <div class="circle places"></div>
-                </div>
-                <div class="columns small-9">
-                    <h4>Nasze placówki</h4>
-                    <p>Współpracujemy z wybranymi placówkami
-                        na terenie całej Polski wprowadzając
-                        jednolite standardy zabiegowe.</p>
-                    <div class="text-right"><a href="#" class="button">więcej</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="columns medium-5 medium-centered large-4 large-uncentered">
-            <div class="row">
-                <div class="columns small-3 circle-parent">
-                    <div class="circle docs"></div>
-                </div>
-                <div class="columns small-9">
-                    <h4>Dokumenty i formularze</h4>
-                    <p>Zapoznaj się z dokumentami i formularzami
-                        niezbędnymi do wykonania zabiegu.</p>
-                    <div class="text-right"><a href="#" class="button">więcej</a></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
     <section>
-        <div class="row top-offset">
+        <div class="row">
             <div class="columns small-12 zabieg">
-                Nie wiesz jak przygotować się do zabiegu? Co masz z sobą zabrać? Krótki poradnik krok po kroku...
+                Czym jest wazektomia?
             </div>
         </div>
-        <div class="row top-offset">
-            <div class="columns small-11 small-centered medium-9 medium-centered large-uncentered large-6 timeline">
-                <div class="line"></div>
-                <ul>
-                    <li class="active">
-                        <div class="text">
-                            <p>
-                                {{ steps[0].text|raw }}
-                            </p>
-                        </div>
-                        <div style="clear:both"></div>
-                    </li>
-                    <li>
-                        <div class="text">
-                            <p>
-                                {{ steps[1].text|raw }}
-                            </p>
-                        </div>
-                        <div style="clear:both"></div>
-                    </li>
-                    <li>
-                        <div class="text">
-                            <p>
-                                {{ steps[2].text|raw }}
-                            </p>
-                        </div>
-                        <div style="clear:both"></div>
-                    </li>
-                    <li>
-                        <div class="text">
-                            <p>
-                                {{ steps[3].text|raw }}
-                            </p>
-                        </div>
-                        <div style="clear:both"></div>
-                    </li>
-                    <li>
-                        <div class="text">
-                            <p>
-                                {{ steps[4].text|raw }}
-                            </p>
-                        </div>
-                        <div style="clear:both"></div>
-                    </li>
-                </ul>
-            </div>
-            <div class="columns small-12 medium-9 medium-centered large-uncentered  large-6 end">
-                <div class="flex-video">
-                    {{ steps[5].text|raw }}
-                </div>
-            </div>
-            <div class="columns small-11 small-centered medium-9 medium-centered large-uncentered large-6 timeline">
-                <ul>
-                    <li class="callus">
-                        <div class="text">
-                            <p>
-                                {{ steps[6].text|raw }}
-                            </p>
-                        </div>
-                        <div style="clear:both"></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="row places">
-            <div class="topline"></div>
-            <div class="columns small-12 medium-5 large-6 greenbox">
-                <h2>Nasze placówki</h2>
-                <div id="map">
-                    <ul class="cities">
-                        {% for city in cities %}
-                            <li class="city" style="left:{{ city.x_pos }}px; top:{{ city.y_pos }}px;" rel="{{ city.name }}"><a class="city-name" style="cursor:pointer; width:11px; height: 11px; display:inline-block; vertical-align: top;" rel="{{ city.id_city }}" title="{{ city.name }}"></a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="topline"></div>
-                <div class="selectplace2">
-                    Wybierz odpowiednią placówkę
-                </div>
-                <div class="show-for-small show2">
-                    <div class="selectplace">
-                        Wybierz odpowiednią placówkę
-                    </div>
-                </div>
-            </div>
-            <div class="columns small-6 graybox hide2 place-details">
-                <h3 id="city-name-title">Warszawa</h3>
-                <div class="actionbox">
-                    <div class="textlabel">Wybierz dogodny dla Ciebie termin zabiegu:</div>
-                    <a href="/miasto/1" id="city-free" class="button">Wolne terminy</a>
-                </div>
-                <div class="actionbox">
-                    <div class="textlabel">Zadzwoń i zarejestruj się telefonicznie:</div>
-                    <a href="/kontakt" class="button">Rejestracja</a>
-                </div>
+        <div class="info row">
+            <p><span class="name">Wazektomia</span> jest mikrochirurgiczną procedurą mającą na celu doprowadzenie do okresowej niepłodności mężczyzny. Należy do najbardziej popularnych form antykoncepcji w USA i wielu innych krajach. Jest bezpieczna, prosta, ma bardzo dużą skuteczność (99,9%). Chociaż mężczyźni kontynuują stosunki seksualne i mają orgazmy jak poprzednio, ich nasienie nie zawiera plemników.</p>
 
-            </div>
+            <p><span class="name">Technika bez skalpela - Wazektomia Bez Skalpela (WBS)</span> - jest jedną z dwóch głównych chirurgicznych metod wykonywanej wazektomii. Większość lekarzy popiera WBS. Użycie skalpela, jak też naciecie nie jest wymagane, stosuje się jedynie rozwarstwienie skóry, bez zakładania szwów. W dodatku, podczas stosowania tej techniki obserwuje sie często mniejszy dyskomfort, z redukcją ryzyka krwawienia czy infekcji. Blizna jest prawie niewidoczna. Od 30 czerwca br. po ośmiu latach doświadczeń klinicznych, stosujemy metodę o nazwie „Total Vasectomy”(TV). Co to znaczy? W TV stosujemy: na dany nasieniowód zakładamy podwójne szwy nierozpuszczalne, wycięcie kilku milimetrów nasieniowodu, oraz mikrokoagulację ujść nasieniowodów.</p>
+
+            <p>
+                <span class="name">Jak długo trwa procedura WBS (Wazektomia Bez Skalpela)?</span><br>
+                Sama procedura WBS 7-10 min. W zależności od anatomii przebiegu nasieniowodu zabieg może trwać i 25 minut. Pacjent przebywa w gabinecie ok. 30 minut, a związane jest to z przygotowaniem, przeczytaniem i podpisaniem dokumentacji, rozmową przed i po zabiegu.<br>
+                Po wazektomii wskazana jest ostrożnosć i oszczędny tryb życia przez 7 dni, gdyż pacjent może odczuwać niewielki ból i delikatne “pociąganie”.
+            </p>
+
+            <p>
+                <span class="name">Jaka jest skuteczność WBS?</span><br>
+                Wazektomia w porównaniu do innych metod antkoncepcji jest najbardziej skuteczną metodą zapobiegania ciąży. Pary które wybierają wysoce niezawodną i trwałą formę antykoncepcji, często wybierają wazektomię, gdzie skuteczność metody sięga powyżej 99,9%.
+            </p>
+
+            <p>
+               <span class="name">Wazektomia</span> to zabiegowa metoda antykoncepcji dla mężczyzn polegająca na zablokowaniu drożnościnasieniowodów (przez które plemniki normalnie przechodzą z jąder, gdzie są produkowane, do członka). Wazektomia Wazektomia jest odpowiednia dla mężczyzny, który jest pewien, że nie będzie chciał mieć (więcej) dzieci. Mężczyźni rozważający tę metodę antykoncepcji powinni uwzględnić, że ewentualna operacja przywrócenia drożności nasieniowodów (reversal vasectomy) nie zawsze kończy się powodzeniem.<br>
+                Podobnie zresztą odzyskanie płodności przez kobietę stosującą tzw. spiralkę nie gwarantuje odzyskania zdolności do zajścia w ciążę. Zaletą wazektomii jest między innymi to, że jest to metoda antykoncepcyjna chroniąca kobiety przed działaniem niepożądanym długotrwałego stosowania hormonów antykoncepcyjnych (z czym bardzo często wiąże się spadek libido, napady złości i nastroje depresyjne, a także wzrasta ryzyko rozwoju raka piersi).<br>
+                Wazektomia uwalnia też niektóre kobiety od konieczności stosowania wkładki domacicznej (spirali). Obie powyższe metody antykoncepcji wiążą się z wyższym ryzykiem powikłań niż wazektomia (uniedrożnienie nasieniowodów). W ZdrOva w Warszawie wazektomię wykonujemy metodą bez skalpela i bez igły – jest to metoda małoinwazyjna. Do znieczulenia wykorzystywane jest specjalne urządzenie, które wstrzykuje środek znieczulający bez potrzeby igły.
+            </p>
+
+            <p>
+                <span class="name">Co zwiększa ryzyko powikłań w trakcie zabiegu wazektomii:</span><br>
+                - Zakażenie miejscowe<br>
+                - Zaburzenia krzepnięcia krwi (np. wrodzone lub związane ze stosowaniem aspiryny i leków podobnych)
+            </p>
+
+            <p>
+                <span class="name">Czego można się spodziewać w związku z wazektomią</span><br>
+                Przed przystąpieniem wazektomii Lekarz podczas wizyty kwalifikacyjnej wykonuje następujące czynności:<br>
+                <br>
+                - Bezpłatne* badanie nasienia - czasem wazektomia jest zbędna. Dodatkowo ewentualna słaba wyjściowa jakość nasienia ma znaczenie w 	   przypadku ewentualnego zabiegu udrożnienia nasieniowodów. Na badanie nasienia zapraszamy oboje partnerów. <br>
+                *Najlepiej przynieść próbkę do badania podczas wizyty kwalifikacyjnej – wtedy i tylko wtedy badanie nasienia jest bezpłatne<br>
+                (płatna jest wizyta kwalifikacyjna – 150 zł).<br>
+                - Rozmowa i wywiad lekarski (seria pytań o stan zdrowia, przebyte choroby, sytuację życiową)<br>
+                - Przegląd i omówienie ew. stosowanych leków.<br>
+                - Omówienie skutków i efektów wazektomii.<br>
+                - Badanie fizyczne – palpacyjne – narządów płciowych. Ma na celu ocenę wskazań i ew. przeciwwskazań do zabiegu wazektomii.<br>
+            </p>
+
+            <p>
+                <span class="name">W dniach poprzedzających wazektomię:</span><br>
+                - Nie należyprzyjmować Aspiryny, Polopiryny, Acard czy innych leków zawierających kwas acetylosalicylowy(acidum acetylosalicilum)  lub salicylanów na dwa tygodnie przed zabiegiem; Stosowanie innych leków przedyskutować to z lekarzem przed wazektomią.<br>
+                - Pobrać i wydrukować formularz (ankietę)  <br>
+                - Zorganizować transport do domu po zabiegu wazektomii (taksówka lub osoba towarzysząca).<br>
+                - Wieczorem w dniu przed zabiegiem wazektomii zjeść lekki posiłek i nie jeść ani pić niczego po północy, chyba że lekarz zleci inaczej.<br>
+                - Zgłosić się na zabieg wazektomii w wygodnych luźnych spodniach i obcisłych (bardzo ważne) slipkach.<br>
+                - Zastosować leki zlecone przez lekarza podczas wizyty kwalifikacyjnej.<br>
+                - Wziąć prysznic i dokładnie dwukrotnie umyć mydłem (najlepiej antybakteryjnym) całe ciało a szczególnie narządy płciowe bezpośrednio przed wyjściem z domu na zabieg wazektomii.<br>
+                - Ogolić dokładnie worek mosznowy – najlepiej na 2-3 dni przed zabiegiem – dzięki czemu pacjent nie odczuwa szczypania przy aplikacji
+                środka odkażającego.<br>
+                - Zgłosić się w umówionym terminie z wypełnioną ankietą
+            </p>
+
+            <p>
+                <span class="name">Możliwe powikłania:</span><br>
+                Możliwe powikłania wczesne po wazektomi:<br>
+                - obrzęk,<br>
+                - krwawienie i powstały krwiak w mosznie jest powikłaniem spotykanym w około 2% przypadków – krwiak może wchłaniać się kilka tygodni<br>
+                lub wymagać usunięcia zabiegowego,<br>
+                - siniak na mosznie,<br>
+                - obecność krwi w nasieniu,<br>
+                - ból moszny, który zwykle zanika po 2 dniach – część pacjentów może odczuwać pobolewania w mosznie przez kilka dni,<br>
+                - stan zapalny i rozwój infekcji w miejscu poddanemu zabiegowi oraz infekcje (zapalenie) jądra, najądrzy.
+            </p>
+
+            <p>
+                <span class="name">Powikłania związane ze znieczuleniem (uczulenie na lek)</span><br>
+                - Utrzymanie płodności w wyniku nieskutecznej wazektomii, lub wczesnej rekanalizacji (wytworzenie się dróg obocznych dla plemników) co może prowadzić do ciąży u partnerki.
+            </p>
+
+            <p>
+                <span class="name">Możliwe powikłania późne po wazektomii</span><br>
+                - Przewlekły ból w okolicach jąder – tzw. zespół bólowy po wazektomii ( ang. Post-Vasectomy Pain Syndrome)<br>
+                - Późna rekanalizacja (odtworzenie ciągłości nasieniowodu) – dotyczy ok. 0.2 % przypadków.<br>
+                - Sperm granuloma (tzw. ziarniniak spermy) – dotyczy 1/500 przypadków.<br>
+                - Obrzęk, bóle jąder występujące w ciągu roku po wazektomii – bardzo rzadko.<br>
+                - Psychologiczne problemy związane z brakiem płodności.<br>
+                - Wytworzenie w organizmie przeciwciał antyplemnikowych w odpowiedzi na wtórną resorpcję plemników – mogą stanowić problem przy ponownej próbie zajścia w ciążę.
+            </p>
+
+            <p>
+                <span class="name">Postępowanie po wazektomii:</span><br>
+                - Czasami przez pierwszych osiem godzin należy stosować okresowe okłady z kostek lodu, zawiniętych w ręcznik.<br>
+                - Leżenie w łóżku przez co najmniej jeden dzień, oraz odpoczynek w domu przez 2-4 dni.<br>
+                - Prysznic można wziąć dopiero następnego dnia.<br>
+                - Przez tydzień należy unikać ciężkiej pracy fizycznej oraz ćwiczeń fizycznych.<br>
+                - Miejsce, w którym wykonany był poprzez rozsunięcie skóry otworek, należy utrzymywać czyste i suche, poprzez zmianę gazików dwa do trzech razy dziennie przez trzy dni – lub zgodnie z zaleceniem lekarza.<br>
+                - Mała ilość krwi w gazikach jest normalna. W przypadku nadmiernego krwawienia, silnego obrzęku lub bólu istnieje konieczność zgłoszenia się do lekarza.<br>
+                - Lekarz może zalecić antybiotyki przez kilka dni po zabiegu.<br>
+                - 3 do 5 dni po wazektomii należy zgłosić się na wizytę kontrolną do Warszawy.<br>
+                - po 12 tygodniach oraz po roku od zabiegu należy przynieść nasienie do bezpłatnego badania - podstawowe komputerowe badanie nasienia odbywa się na oczach pacjenta (w ZdrOva w Warszawie).
+            </p>
+
+            <p>
+                <span class="name">Co po wazektomii?</span><br>
+                Większość mężczyzn czuje się na tyle dobrze po wazektomii by powrócić do pracy w ciągu kilku dni. Gotowość do aktywności seksualnej wraca w ciągu około 7 dni. Początkowo wytrysk może powodować pewien dyskomfort w pachwinach i jądrach aż tkanki w pełni się zagoją. Należy unikać podnoszenia ciężkich przedmiotów albo uprawiania sportu przez 2-3 tygodnie. W ciągu 3 pierwszych miesięcy należy używać innej dodatkowej metody antykoncepcji, aż dwa badania, (pierwsze po 12 tygodniach) w odstępie 4-6 tygodni, pokazują, że w ejakulacie nie ma obecnych plemników. Kiedy należy niezwłocznie zgłosić się do lekarza
+            </p>
+
+            <p>
+                <span class="name">Gdy wystąpią objawy zakażenia, w tym gorączka i dreszcze</span><br>
+                - Zaczerwienienie, obrzęk, zwiększenie bólu, nadmierne krwawienie lub wyciek z miejsca nacięcia<br>
+                - Trudności w oddawaniu moczu
+            </p>
         </div>
     </section>
 {% endblock %}

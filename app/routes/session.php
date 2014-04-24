@@ -23,10 +23,23 @@ $app->hook('slim.before.dispatch', function() use ($app) {
  */
 $app->get('/', function () use ($app) {
 
-    $site = Model::factory('Site')->find_one(1);
-    $steps = Model::factory('Step')->where('id_site',$site->id_site)->find_many();
+    $site = Model::factory('Site')->find_one(8);
+    $steps = $site->steps()->find_many();
+    foreach($steps as &$step) {
+        $step->text = prepareDbToHtml($step->text);
+    }
+    if($site->mapa == 1) {
+        $cities = Model::factory('City')->filter('getManyCitiesNames','pl')->find_many(); //TODO jezyk w zaleznosci od wersji jezykowej
+    } else $cities = array();
+    if($site->template == 'placowki') {
+        $date = date('Y-m-j');
+        $currentMonth = date('n');
+        $calendar = new Acme\Calendar($cities[0]->id_city);
+        $calendarCurrentMonth = $calendar->getFreeDaysForCityInMonth($date);
+        $listOfMonths = Acme\Calendar::getListOfMonths('pl');
+    }
 
-    $app->render('vazectomia.html.twig', array('menuid'=>1, 'steps'=>$steps));
+    $app->render('home.html.twig', array('menuid'=>1, 'steps'=>$steps, 'cities'=>$cities, 'available'=>$calendarCurrentMonth, 'month'=>$currentMonth, 'listOfMonths'=>$listOfMonths));
 });
 
 /*

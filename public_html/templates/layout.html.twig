@@ -25,7 +25,7 @@
                     <!-- Right Nav Section -->
                     <ul class="right">
                         {% for menu in topMenu %}
-                            <li class="<?php print $classHome?>"><a href="/{{ menu.id_menu }},{{ menu.url }}">{{ menu.name }}</a></li>
+                            <li class=""><a href="/{{ menu.id_menu }},{{ menu.url }}">{{ menu.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </section>
@@ -38,12 +38,9 @@
         <aside class="right-off-canvas-menu">
             <div class="off-canvas-menu-label">MENU</div>
             <ul class="off-canvas-list">
-                <li class="<?php print $classHome?>"><a href="/">Wazektomia</a></li>
-                <li class="<?php print $classKroki?>"> <a href="?p=krok">Krok po kroku</a></li>
-                <li class="<?php print $classPlacowki?>"> <a href="?p=placowki">Placówki</a></li>
-                <li > <a href="#">Dokumenty</a></li>
-                <li> <a href="#">Cennik</a></li>
-                <li class="<?php print $classKontakt?>"> <a href="?p=kontakt">Kontakt</a></li>
+                {% for menu in topMenu %}
+                    <li class=""><a href="/{{ menu.id_menu }},{{ menu.url }}">{{ menu.name }}</a></li>
+                {% endfor %}
             </ul>
         </aside>
         <a class="exit-off-canvas"></a>
