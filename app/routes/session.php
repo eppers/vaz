@@ -48,6 +48,8 @@ $app->get('/', function () use ($app) {
 $app->get('/:id,:slug', function ($id) use ($app) {
 
     $site = Model::factory('Site')->find_one(intval($id));
+    $siteLang = $site->getOneSiteName()->where('lang','pl')->find_one();//TODO jezyki
+    $content = prepareDbToHtml($siteLang->text);
     $steps = $site->steps()->find_many();
     foreach($steps as &$step) {
         $step->text = prepareDbToHtml($step->text);
@@ -62,7 +64,7 @@ $app->get('/:id,:slug', function ($id) use ($app) {
       $calendarCurrentMonth = $calendar->getFreeDaysForCityInMonth($date);
       $listOfMonths = Acme\Calendar::getListOfMonths('pl');
     }
-    $app->render($site->template.'.html.twig', array('menuid'=>1, 'steps'=>$steps, 'cities'=>$cities, 'available'=>$calendarCurrentMonth, 'month'=>$currentMonth, 'listOfMonths'=>$listOfMonths));
+    $app->render($site->template.'.html.twig', array('menuid'=>1, 'content'=>$content, 'steps'=>$steps, 'cities'=>$cities, 'available'=>$calendarCurrentMonth, 'month'=>$currentMonth, 'listOfMonths'=>$listOfMonths));
 });
 
 $app->get('/miasto/:id', function ($id) use ($app) {
