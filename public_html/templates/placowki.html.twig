@@ -10,7 +10,7 @@
             <div id="map">
                 <ul class="cities" id="placowki-cities">
                     {% for city_list in cities %}
-                        {% if city_list.id_city == city.id_city  %}
+                        {% if (city_list.id_city == city.id_city) or (loop.index==1)  %}
                             {% set x_pos, y_pos = city_list.x_pos-3, city_list.y_pos-3 %}
                         {% else %}
                             {%set x_pos, y_pos = city_list.x_pos, city_list.y_pos %}

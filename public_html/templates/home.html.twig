@@ -122,8 +122,13 @@
                 <h2>Nasze placówki</h2>
                 <div id="map">
                     <ul class="cities">
-                        {% for city in cities %}
-                            <li class="city" style="left:{{ city.x_pos }}px; top:{{ city.y_pos }}px;" rel="{{ city.name }}"><a class="city-name" style="cursor:pointer; width:11px; height: 11px; display:inline-block; vertical-align: top;" rel="{{ city.id_city }}" title="{{ city.name }}"></a></li>
+                        {% for city_list in cities %}
+                            {% if (city_list.id_city == city.id_city) or (loop.index==1)  %}
+                                {% set x_pos, y_pos = city_list.x_pos-3, city_list.y_pos-3 %}
+                            {% else %}
+                                {%set x_pos, y_pos = city_list.x_pos, city_list.y_pos %}
+                            {% endif %}
+                            <li class="city {% if city_list.id_city == city.id_city  %}active{% elseif loop.index==1%}active{% endif %}" style="left:{{ x_pos }}px; top:{{ y_pos }}px;" data-x_pos="{{ city_list.x_pos }}" data-y_pos="{{ city_list.y_pos }}" rel="{{ city_list.name }}"><a class="city-name" style="cursor:pointer; width:11px; height: 11px; display:inline-block; vertical-align: top;" rel="{{ city_list.id_city }}" title="{{ city_list.name }}"></a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -138,7 +143,7 @@
                 </div>
             </div>
             <div class="columns small-6 graybox hide2 place-details">
-                <h3 id="city-name-title">Warszawa</h3>
+                <h3 id="city-name-title">{{ cities[0].name }}</h3>
                 <div class="actionbox">
                     <div class="textlabel">Wybierz dogodny dla Ciebie termin zabiegu:</div>
                     <a href="/miasto/1" id="city-free" class="button">Wolne terminy</a>
