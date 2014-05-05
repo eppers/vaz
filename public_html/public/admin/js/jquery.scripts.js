@@ -144,6 +144,12 @@ $(document).ready(function(){
         
     });
 
+    $('#add-file').click(function(e){
+        e.preventDefault();
+        var formData = new FormData($("#mainform")[0]);
+        addFile(formData);
+    });
+
 });  //END OF DOCUMENT READY
 
 function deleteItem() {
@@ -327,4 +333,36 @@ function activ(id) {
 
                 }
         });
+}
+
+function addFile(form) {
+    console.log(form);
+    $.ajax({
+        type: 'POST',
+        cache: false,
+        contentType: false,
+        processData: false,
+        url: '/admin/doc/add',
+        data: form,
+        beforeSend: function(){
+            $('#ajax-loader-small').show();
+        },
+        success: function(data) {
+            console.log(data);
+            var response = $.parseJSON(data);
+            $('#ajax-loader-small').hide();
+
+            if(response.error==0) {
+                window.location.replace("/admin/dokumenty");
+            } else if(response.error==1) alert(response.msg);
+
+        },
+        error: function(xhr,textStatus,err)
+        {
+            console.log("readyState: " + xhr.readyState);
+            console.log("responseText: "+ xhr.responseText);
+            console.log("status: " + xhr.status);
+
+        }
+    });
 }

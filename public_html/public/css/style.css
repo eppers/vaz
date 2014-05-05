@@ -85,7 +85,13 @@
   border: 0;
 }
 
-
-
-
 #kontakt .circle{ background: none; margin-right: 30px; line-height: 107px;}
+
+.docs {
+    display: block;
+    line-height: 30px;
+}
+
+.docs:first-of-type{
+    margin-top:20px;
+}

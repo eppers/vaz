@@ -58,13 +58,16 @@ $app->get('/:id,:slug', function ($id) use ($app) {
         $cities = Model::factory('City')->filter('getManyCitiesNames','pl')->find_many(); //TODO jezyk w zaleznosci od wersji jezykowej
     } else $cities = array();
     if($site->template == 'placowki') {
-      $date = date('Y-m-j');
-      $currentMonth = date('n');
-      $calendar = new Acme\Calendar($cities[0]->id_city);
-      $calendarCurrentMonth = $calendar->getFreeDaysForCityInMonth($date);
-      $listOfMonths = Acme\Calendar::getListOfMonths('pl');
+        $date = date('Y-m-j');
+        $currentMonth = date('n');
+        $calendar = new Acme\Calendar($cities[0]->id_city);
+        $calendarCurrentMonth = $calendar->getFreeDaysForCityInMonth($date);
+        $listOfMonths = Acme\Calendar::getListOfMonths('pl');
     }
-    $app->render($site->template.'.html.twig', array('menuid'=>1, 'content'=>$content, 'steps'=>$steps, 'cities'=>$cities, 'available'=>$calendarCurrentMonth, 'month'=>$currentMonth, 'listOfMonths'=>$listOfMonths));
+    if($site->template == 'dokumenty') {
+        $docs = Model::factory('Document')->where('lang','pl')->find_many(); //TODO jezyk
+    }
+    $app->render($site->template.'.html.twig', array('menuid'=>1, 'content'=>$content, 'steps'=>$steps, 'cities'=>$cities, 'available'=>$calendarCurrentMonth, 'month'=>$currentMonth, 'listOfMonths'=>$listOfMonths, 'docs'=>$docs));
 });
 
 $app->get('/miasto/:id', function ($id) use ($app) {

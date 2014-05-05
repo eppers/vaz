@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_title %}Dokumenty{% endblock %}
+{% block content %}
+<section>
+    <div class="row">
+        <div class="columns small-12 zabieg">
+            Dokumenty
+        </div>
+    </div>
+    <div class="info row">
+        {{ content|raw }}
+        {% for doc in docs %}
+            <a href="/public/upload/{{ doc.url }}" title="{{ doc.name }}" class="docs" target="_blank">{{ doc.name }}</a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

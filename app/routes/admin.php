@@ -274,6 +274,62 @@ $app->post('/admin/user/edit', $auth, function () use ($admin) {
     $admin->app->redirect('/admin/site/all');
 });
 
+/******************** Dokumenty ***********************/
+
+$app->get('/admin/dokumenty', function () use ($admin) {
+
+    $docs = Model::factory('Document')->where('lang','pl')->find_many(); //TODO wersja jezykowa w zaleznosci od sesji
+
+    $admin->render('/doc/all.html.twig',array('docs'=>$docs));
+});
+
+
+$app->post('/admin/doc/add', $auth, function () use ($app) {
+
+    $name = $app->request()->post('name');
+
+    if(!empty($name) && isset($_FILES)) {
+        $document=Model::factory('Document')->create();
+
+        try {
+            $file = \Acme\File::load($_FILES,'./public/upload/');
+            $document->name = clearName($name);
+            $document->url = $file->getFileName();
+            $document->lang = 'pl'; //TODO wersja jezykowa sesja
+
+            if(!$document->save()) {
+                throw new Exception('Któraś z danych jest niepoprawna');
+            }
+        }catch (PDOException $pdoex) {
+            unlink($file->getFilePath());
+            print json_encode(array('error'=>1, 'msg'=>'Błąd SQL! '.$pdoex->getMessage()));
+            exit();
+        }catch(Exception $e) {
+            print json_encode(array('error'=>1, 'msg'=>'Błąd! '.$e->getMessage()));
+            exit();
+        }
+
+        print json_encode(array('error'=>0));
+
+    } else print json_encode(array('error'=>1, 'msg'=>'Błąd! Problem z którymś z pól.'));
+});
+
+/*
+* Document delete
+*/
+$app->get('/admin/doc/delete/:id', $auth, function ($id) use ($admin) {
+
+    $id = intval($id);
+    $doc = Model::factory('Document')->find_one($id);
+
+    if($doc instanceof Document) {
+
+        unlink('./public/upload/'.$doc->url);
+        $doc->delete();
+    }
+
+    $admin->app->redirect('/admin/dokumenty');
+});
 
 /*
  * Logowanie - wyświetlanie formularza
